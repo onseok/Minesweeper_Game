@@ -23,7 +23,7 @@ int Minesweeper::start()
         switch (ReadyGame())    //리턴을 받아서 판단.
         {
         case MENU::GAMESTART_LOAD:
-            InfoGame();
+            LoadGame();
             break;
         case MENU::GAMESTART_EASY:
             StartGame_Easy();
@@ -45,13 +45,13 @@ int Minesweeper::start()
 void Minesweeper::DrawReadyGame()
 {
     system("cls");    //화면을 클리어 해주는 함수 입니다.
-    gotoxy(5, 2);
-    cout << "        201710321 김원석      ";
-    gotoxy(5, 3);
+    gotoxy(1, 1);
+    cout << "201710321 김원석";
+    gotoxy(7, 5);
     cout << "******************************";
-    gotoxy(5, 4);
+    gotoxy(7, 6);
     cout << "*        지뢰찾기 게임       *";
-    gotoxy(5, 5);
+    gotoxy(7, 7);
     cout << "******************************";
     gotoxy(10, 10);
     cout << "[이어하기]";
@@ -65,46 +65,49 @@ void Minesweeper::DrawReadyGame()
     cout << "[종료하기]";
 }
 
-void Minesweeper::DrawInfoGame()
+void Minesweeper::DrawLoadGame()
 {
     system("cls");
-    gotoxy(1, 3);
-    cout << "*******************************************";
-    gotoxy(1, 4);
-    cout << "|Developer - BlockDMask.";
-    gotoxy(1, 5);
-    cout << "|Blog - https://blockdmask.tistory.com/";
-    gotoxy(1, 6);
-    cout << "|Insta - @BlockDMask";
-    gotoxy(1, 7);
-    cout << "|follow my instagram. Thank you.";
-    gotoxy(1, 8);
-    cout << "|블로그 많은 방문 부탁드립니다";
-    gotoxy(1, 9);
-    cout << "*******************************************";
-    gotoxy(1, 10);
-    cout << "|Music - https://www.youtube.com/HYPMUSIC";
+    gotoxy(1, 1);
+    cout << "201710321 김원석";
+    gotoxy(10, 10);
+    cout << "기능 준비중...";
 }
 
 void Minesweeper::DrawStartGame_Easy()
 {
     system("cls");
 
-    if (isLose) {
-        gotoxy(30, 12);
+    gotoxy(1, 1);
+    cout << "201710321 김원석";
+
+    if (isLose && !isWin) {
+        gotoxy(30, 10);
         cout << "===================================";
-        gotoxy(30, 13);
+        gotoxy(30, 12);
         cout << "            게 임 오 버            ";
         gotoxy(30, 14);
         cout << "===================================";
         gotoxy(30, 20);
         cout << "  c 키 혹은 C 키  : 메뉴로 돌아가기";
     }
-    else {
-        gotoxy(30, 12);
+    else if (!isLose && isWin) {
+        gotoxy(30, 10);
         cout << "===================================";
-        gotoxy(30, 13);
+        gotoxy(30, 12);
+        cout << "            게 임 승 리             ";
+        gotoxy(30, 14);
+        cout << "===================================";
+        gotoxy(30, 20);
+        cout << "  c 키 혹은 C 키  : 메뉴로 돌아가기";
+    }
+    else {
+        gotoxy(30, 10);
+        cout << "===================================";
+        gotoxy(30, 11);
         cout << "            난이도 (하)            ";
+        gotoxy(30, 13);
+        cout << "        폭탄 갯수 => " << BOMBS_CNT << "개";
         gotoxy(30, 14);
         cout << "===================================";
         gotoxy(30, 18);
@@ -143,21 +146,36 @@ void Minesweeper::DrawStartGame_Standard()
 {
     system("cls");
 
-    if (isLose) {
-        gotoxy(30, 12);
+    gotoxy(1, 1);
+    cout << "201710321 김원석";
+
+    if (isLose && !isWin) {
+        gotoxy(30, 10);
         cout << "===================================";
-        gotoxy(30, 13);
+        gotoxy(30, 12);
         cout << "            게 임 오 버            ";
         gotoxy(30, 14);
         cout << "===================================";
         gotoxy(30, 20);
         cout << "  c 키 혹은 C 키  : 메뉴로 돌아가기";
     }
-    else {
-        gotoxy(30, 12);
+    else if (!isLose && isWin) {
+        gotoxy(30, 10);
         cout << "===================================";
-        gotoxy(30, 13);
+        gotoxy(30, 12);
+        cout << "            게 임 승 리             ";
+        gotoxy(30, 14);
+        cout << "===================================";
+        gotoxy(30, 20);
+        cout << "  c 키 혹은 C 키  : 메뉴로 돌아가기";
+    }
+    else {
+        gotoxy(30, 10);
+        cout << "===================================";
+        gotoxy(30, 11);
         cout << "            난이도 (중)            ";
+        gotoxy(30, 13);
+        cout << "        폭탄 갯수 => " << BOMBS_CNT << "개";
         gotoxy(30, 14);
         cout << "===================================";
         gotoxy(30, 18);
@@ -184,21 +202,36 @@ void Minesweeper::DrawStartGame_Hard()
 {
     system("cls");
 
-    if (isLose) {
-        gotoxy(30, 12);
+    gotoxy(1, 1);
+    cout << "201710321 김원석";
+
+    if (isLose && !isWin) {
+        gotoxy(30, 10);
         cout << "===================================";
-        gotoxy(30, 13);
+        gotoxy(30, 12);
         cout << "            게 임 오 버            ";
         gotoxy(30, 14);
         cout << "===================================";
         gotoxy(30, 20);
         cout << "  c 키 혹은 C 키  : 메뉴로 돌아가기";
     }
-    else {
-        gotoxy(30, 12);
+    else if (!isLose && isWin) {
+        gotoxy(30, 10);
         cout << "===================================";
-        gotoxy(30, 13);
+        gotoxy(30, 12);
+        cout << "            게 임 승 리             ";
+        gotoxy(30, 14);
+        cout << "===================================";
+        gotoxy(30, 20);
+        cout << "  c 키 혹은 C 키  : 메뉴로 돌아가기";
+    }
+    else {
+        gotoxy(30, 10);
+        cout << "===================================";
+        gotoxy(30, 11);
         cout << "            난이도 (상)            ";
+        gotoxy(30, 13);
+        cout << "        폭탄 갯수 => " << BOMBS_CNT << "개";
         gotoxy(30, 14);
         cout << "===================================";
         gotoxy(30, 18);
@@ -224,6 +257,8 @@ void Minesweeper::DrawStartGame_Hard()
 double Minesweeper::SelectMapSize_Easy()
 {
     system("cls");
+    gotoxy(1, 1);
+    cout << "201710321 김원석";
     gotoxy(10, 8);
     cout << "난이도 하 (맵 크기의 10% 지뢰 생성)";
     gotoxy(10, 10);
@@ -244,6 +279,8 @@ double Minesweeper::SelectMapSize_Easy()
 double Minesweeper::SelectMapSize_Standard()
 {
     system("cls");
+    gotoxy(1, 1);
+    cout << "201710321 김원석";
     gotoxy(10, 8);
     cout << "난이도 중 (맵 크기의 20% 지뢰 생성)";
     gotoxy(10, 10);
@@ -264,6 +301,8 @@ double Minesweeper::SelectMapSize_Standard()
 double Minesweeper::SelectMapSize_Hard()
 {
     system("cls");
+    gotoxy(1, 1);
+    cout << "201710321 김원석";
     gotoxy(10, 8);
     cout << "난이도 상 (맵 크기의 30% 지뢰 생성)";
     gotoxy(10, 10);
@@ -281,9 +320,9 @@ double Minesweeper::SelectMapSize_Hard()
     return 0.3;
 }
 
-void Minesweeper::InfoGame()
+void Minesweeper::LoadGame()
 {
-    DrawInfoGame();
+    DrawLoadGame();
     system("pause>null");
 }
 
@@ -347,6 +386,15 @@ void Minesweeper::StartGame_Easy()
             arr_j = x + 1;
             if (!table[arr_i][arr_j].clicked) {
                OpenTile(arr_i, arr_j);
+
+               // 남은 UNCLICK 개수 (FLAG와 무관)가 폭탄개수와 동일하면 승리
+               if (remainTiles() == BOMBS_CNT) {
+                   Win();
+                   isWin = true;
+               }
+               else {
+                   isWin = false;
+               }
             }
         }
         if (input == 70 || input == 102) {  // f키나 F키를 받을 경우 (깃발 생성)
@@ -358,6 +406,7 @@ void Minesweeper::StartGame_Easy()
         }
         if (input == 67 || input == 99) { // c키나 C키를 받을 경우 되돌아가기
             isLose = false;
+            isWin = false;
             break;
         }
     }
@@ -434,12 +483,13 @@ void Minesweeper::StartGame_Standard()
         }
         if (input == 67 || input == 99) { // c키나 C키를 받을 경우 되돌아가기
             isLose = false;
+            isWin = false;
             break;
         }
     }
 }
 
-void Minesweeper::StartGame_Hard()
+void Minesweeper::StartGame_Hard() 
 {
     double para = SelectMapSize_Hard();
     init(para);
@@ -510,6 +560,7 @@ void Minesweeper::StartGame_Hard()
         }
         if (input == 67 || input == 99) { // c키나 C키를 받을 경우 되돌아가기
             isLose = false;
+            isWin = false;
             break;
         }
     }
@@ -634,17 +685,6 @@ int Minesweeper::remainTiles()
         }
     }
     return cnt;
-}
-
-bool Minesweeper::isWin()
-{
-    // 남은 UNCLICK 개수 (FLAG와 무관)가 폭탄개수와 동일하면 승리
-    if (remainTiles() == BOMBS_CNT) {
-        return true;
-    }
-    else {
-        return false;
-    }
 }
 
 void Minesweeper::Win()

@@ -50,10 +50,6 @@ int main(void) {
 	
 	greenjoa.start();
 
-	if (greenjoa.isWin()) {
-		greenjoa.Win();
-	}
-
 	return 0;
 }
 

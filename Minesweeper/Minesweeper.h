@@ -29,19 +29,20 @@ private:
 	int BOMBS_CNT; // ÆøÅºÀÇ °¹¼ö
 	Tile** table;
 	bool isLose = false;
+	bool isWin = false;
 public:
 	Minesweeper();
 	~Minesweeper();
 	int start();
 	void DrawReadyGame();
-	void DrawInfoGame();
+	void DrawLoadGame();
 	void DrawStartGame_Easy();
 	void DrawStartGame_Standard();
 	void DrawStartGame_Hard();
 	double SelectMapSize_Easy();
 	double SelectMapSize_Standard();
 	double SelectMapSize_Hard();
-	void InfoGame();
+	void LoadGame();
 	void StartGame_Easy();
 	void StartGame_Standard();
 	void StartGame_Hard();
@@ -52,7 +53,6 @@ public:
 	void OpenTile(int _i, int _j);
 	void OpenBlanks(int _i, int _j);
 	int remainTiles();
-	bool isWin();
 	void Win();
 	void Lose();
 
