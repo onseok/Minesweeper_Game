@@ -3,6 +3,7 @@
 #include <iostream>
 #include <conio.h>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ int Minesweeper::start()
         switch (ReadyGame())    //리턴을 받아서 판단.
         {
         case MENU::GAMESTART_LOAD:
-            LoadGame();
+            StartGame_Load();
             break;
         case MENU::GAMESTART_EASY:
             StartGame_Easy();
@@ -66,13 +67,57 @@ void Minesweeper::DrawReadyGame()
     cout << "[종료하기]";
 }
 
-void Minesweeper::DrawLoadGame()
+void Minesweeper::DrawStartGame_Load()
 {
-    system("cls");
-    gotoxy(1, 1);
-    cout << "201710321 김원석";
-    gotoxy(10, 10);
-    cout << "기능 준비중...";
+    ifstream loadData("data.txt");
+    string line;
+    vector<string> replay;
+    int cnt = 0;
+    int keyboard, _x, _y;
+
+    switch (stage)
+    {
+    case 1:
+         //리플레이 맨 마지막 적용
+        while (getline(loadData, line)) {
+            replay.push_back(line);
+            if (cnt >= COL - 1) {
+                loadData >> keyboard >> _x >> _y;
+
+                if (keyboard == SPACE) {
+                    // 타일을 열어주는 함수
+                    if (!table[_x][_y].clicked) {
+                        OpenTile(_x, _y);
+
+                        // 남은 UNCLICK 개수 (FLAG와 무관)가 폭탄개수와 동일하면 승리
+                        if (remainTiles() == BOMBS_CNT) {
+                            Win();
+                            isWin = true;
+                        }
+                        else {
+                            isWin = false;
+                        }
+                    }
+                }
+                if (keyboard == 70 || keyboard == 102) {  // f키나 F키를 받을 경우 (깃발 생성)
+                    if (table[_x][_y].clicked == false) {
+                        table[_x][_y].flag = !table[_x][_y].flag;
+                    }
+                }
+            }
+            cnt++;
+        }
+        DrawStartGame_Easy();
+        break;
+    case 2:
+        // 리플레이 맨 마지막 적용
+        DrawStartGame_Standard();
+        break;
+    case 3:
+        // 리플레이 맨 마지막 적용
+        DrawStartGame_Hard();
+        break;
+    }
 }
 
 void Minesweeper::DrawStartGame_Easy()
@@ -114,7 +159,7 @@ void Minesweeper::DrawStartGame_Easy()
 
         drawTable();
 
-        ifstream load("data.txt", ios::in);
+        ifstream load("replay.txt", ios::in);
 
         while (!load.eof()) {
             int keyboard, _x, _y;
@@ -189,8 +234,6 @@ void Minesweeper::DrawStartGame_Easy()
 
         drawTable();
     }
-
-
 }
 
 void Minesweeper::DrawStartGame_Standard()
@@ -232,7 +275,7 @@ void Minesweeper::DrawStartGame_Standard()
 
         drawTable();
 
-        ifstream load("data.txt", ios::in);
+        ifstream load("replay.txt", ios::in);
 
         while (!load.eof()) {
             int keyboard, _x, _y;
@@ -350,7 +393,7 @@ void Minesweeper::DrawStartGame_Hard()
 
         drawTable();
 
-        ifstream load("data.txt", ios::in);
+        ifstream load("replay.txt", ios::in);
 
         while (!load.eof()) {
             int keyboard, _x, _y;
@@ -495,10 +538,198 @@ double Minesweeper::SelectMapSize_Hard()
     return 0.3;
 }
 
-void Minesweeper::LoadGame()
+void Minesweeper::StartGame_Load()
 {
-    DrawLoadGame();
-    system("pause>nul");
+    // 파일로부터 ROW, COL 구하기
+    ifstream load("data.txt");
+    int row_cnt = 0;
+    int col_cnt = 0;
+    int cnt = 0;
+    string line;
+    vector<string> test;
+
+    while (getline(load, line)) {
+        test.push_back(line);
+        if (test[0].length() == test[cnt].length()) {
+            col_cnt += 1;
+        }
+        cnt++;
+    }
+    row_cnt = test[0].length() / 2;
+    
+    ROW = row_cnt;
+    COL = col_cnt;
+    
+    load.close();
+    // ==========================
+
+    // table 객체 생성
+    table = new Tile * [COL + 2];
+    for (int i = 0; i < COL + 2; ++i) {
+        table[i] = new Tile[ROW + 2];
+    }
+    // ==========================
+
+    // table 초기화
+    for (int i = 1; i <= COL; i++) {
+        for (int j = 1; j <= ROW; j++) {
+            table[i][j].clicked = false;
+            table[i][j].flag = false;
+            table[i][j].val = WALL;
+        }
+    }
+    // =========================
+
+    // table 정보 저장
+    ifstream load_2("data.txt");
+
+    for (int i = 1; i <= COL; i++) {
+        for (int j = 1; j <= ROW; j++) {
+            load_2 >> table[i][j].val;
+        }
+    }
+
+    int bombs_cnt = 0;
+    for (int i = 1; i <= COL; i++) {
+        for (int j = 1; j <= ROW; j++) {
+            if (table[i][j].val == BOMB) {
+                table[i][j].bomb = true;
+                bombs_cnt += 1;
+            }
+        }
+    }
+    BOMBS_CNT = bombs_cnt;
+
+    load_2.close();
+    // =============================
+
+    // 난이도 판별하기
+    if (int(ROW * COL * 0.1) == BOMBS_CNT) {
+        stage = 1;
+    }
+    if (int(ROW * COL * 0.2) == BOMBS_CNT) {
+        stage = 2;
+    }
+    if (int(ROW * COL * 0.3) == BOMBS_CNT) {
+        stage = 3;
+    }
+    // ==============================
+
+    int x = 0;                //커서의 x위치
+    int y = 0;                //커서의 y위치
+    int input = 0;            //키보드 입력을 받을 변수
+
+    int arr_i;
+    int arr_j;
+
+    while (true) {
+
+        DrawStartGame_Load();
+
+        if (y <= 0)        //커서가 위로 그만 올라가게 
+        {
+            y = 0;
+        }
+        if (y > COL - 1) //커서가 아래로 그만 내려가게
+        {
+            y = COL - 1;
+        }
+        if (x <= 0) {
+            x = 0;
+        }
+        if (x > ROW - 1) {
+            x = ROW - 1;
+        }
+
+        gotoxy(10 + x, 10 + y);
+
+        input = _getch();    //키보드 입력을 받았다.
+        //→←↑↓
+        if (input == MAGIC_KEY)    //받았는데 224네?
+        {
+            switch (_getch())    //그럼 한번더 받아보자 상하좌우 일수 있으니.
+            {
+            case UP:            //위
+                --y;
+                break;
+            case DOWN:          //아래
+                ++y;
+                break;
+            case LEFT:          //왼쪽
+                --x;
+                break;
+            case RIGHT:         //오른쪽
+                ++x;
+                break;
+            }
+        }
+        if (input == SPACE) //키보드 입력 받았는데 스페이스네?
+        {
+            arr_i = y + 1;
+            arr_j = x + 1;
+
+            // 데이터 저장 부분
+            saveData(input, arr_i, arr_j);
+
+            // 타일을 열어주는 함수
+            if (!table[arr_i][arr_j].clicked) {
+                OpenTile(arr_i, arr_j);
+
+                // 남은 UNCLICK 개수 (FLAG와 무관)가 폭탄개수와 동일하면 승리
+                if (remainTiles() == BOMBS_CNT) {
+                    Win();
+                    isWin = true;
+                }
+                else {
+                    isWin = false;
+                }
+            }
+        }
+        if (input == 70 || input == 102) {  // f키나 F키를 받을 경우 (깃발 생성)
+            arr_i = y + 1;
+            arr_j = x + 1;
+
+            // 데이터 저장 부분
+            saveData(input, arr_i, arr_j);
+
+            if (table[arr_i][arr_j].clicked == false) {
+                table[arr_i][arr_j].flag = !table[arr_i][arr_j].flag;
+            }
+        }
+        if (input == 67 || input == 99) { // c키나 C키를 받을 경우 되돌아가기
+            isLose = false;
+            isWin = false;
+            deleteMem(); // 동적할당한 메모리 삭제하기
+            clearData();
+            break;
+        }
+        if (input == 83 || input == 115) { // s나 S키를 받을 경우 게임 저장하기
+            // 게임을 저장하는 함수
+
+            ofstream clear("data.txt");    // s를 누를 때마다 data 파일 비우기
+            clear.close();
+
+            ofstream save("data.txt");  // 테이블 정보 저장하기
+            for (int i = 1; i <= COL; i++) {
+                for (int j = 1; j <= ROW; j++) {
+                    save << table[i][j].val << " ";
+                }
+                save << endl;
+            }
+            save.close();
+
+            fstream fout("data.txt", ios::out | ios::app); // 쓰기모드로 파일 열기
+            fstream fin("replay.txt", ios::in); // 읽기 모드로 파일 열기
+            int c;
+            while ((c = fin.get()) != EOF) { // REPLAY 파일 끝까지 문자 읽기
+                fout.put(c); // 읽은 문자 기록
+            }
+            fin.close();
+            fout.close();
+
+            break; // save를 한 후에 메뉴로 빠져나오기
+        }
+    }
 }
 
 void Minesweeper::StartGame_Easy()
@@ -528,7 +759,7 @@ void Minesweeper::StartGame_Easy()
         if (x <= 0) {
             x = 0;
         }
-        if (x > ROW - 1) {
+        if (x > ROW - 1) { 
             x = ROW - 1;
         }
 
@@ -596,6 +827,29 @@ void Minesweeper::StartGame_Easy()
         }
         if (input == 83 || input == 115) { // s나 S키를 받을 경우 게임 저장하기
             // 게임을 저장하는 함수
+
+            ofstream clear("data.txt");    // s를 누를 때마다 data 파일 비우기
+            clear.close();
+
+            ofstream save("data.txt");  // 테이블 정보 저장하기
+            for (int i = 1; i <= COL; i++) {
+                for (int j = 1; j <= ROW; j++) {
+                    save << table[i][j].val << " ";
+                }
+                save << endl;
+            }
+            save.close();
+
+            fstream fout("data.txt", ios::out|ios::app); // 쓰기모드로 파일 열기
+            fstream fin("replay.txt", ios::in); // 읽기 모드로 파일 열기
+            int c;
+            while ((c = fin.get()) != EOF) { // REPLAY 파일 끝까지 문자 읽기
+                fout.put(c); // 읽은 문자 기록
+            }
+            fin.close();
+            fout.close();
+
+            break; // save를 한 후에 메뉴로 빠져나오기
         }
     }
 }
@@ -695,6 +949,29 @@ void Minesweeper::StartGame_Standard()
         }
         if (input == 83 || input == 115) { // s나 S키를 받을 경우 게임 저장하기
             // 게임을 저장하는 함수
+
+            ofstream clear("data.txt");    // s를 누를 때마다 data 파일 비우기
+            clear.close();
+
+            ofstream save("data.txt");  // 테이블 정보 저장하기
+            for (int i = 1; i <= COL; i++) {
+                for (int j = 1; j <= ROW; j++) {
+                    save << table[i][j].val << " ";
+                }
+                save << endl;
+            }
+            save.close();
+
+            fstream fout("data.txt", ios::out | ios::app); // 쓰기모드로 파일 열기
+            fstream fin("replay.txt", ios::in); // 읽기 모드로 파일 열기
+            int c;
+            while ((c = fin.get()) != EOF) { // REPLAY 파일 끝까지 문자 읽기
+                fout.put(c); // 읽은 문자 기록
+            }
+            fin.close();
+            fout.close();
+
+            break; // save를 한 후에 메뉴로 빠져나오기
         }
     }
 }
@@ -794,6 +1071,29 @@ void Minesweeper::StartGame_Hard()
         }
         if (input == 83 || input == 115) { // s나 S키를 받을 경우 게임 저장하기
             // 게임을 저장하는 함수
+
+            ofstream clear("data.txt");    // s를 누를 때마다 data 파일 비우기
+            clear.close();
+
+            ofstream save("data.txt");  // 테이블 정보 저장하기
+            for (int i = 1; i <= COL; i++) {
+                for (int j = 1; j <= ROW; j++) {
+                    save << table[i][j].val << " ";
+                }
+                save << endl;
+            }
+            save.close();
+
+            fstream fout("data.txt", ios::out | ios::app); // 쓰기모드로 파일 열기
+            fstream fin("replay.txt", ios::in); // 읽기 모드로 파일 열기
+            int c;
+            while ((c = fin.get()) != EOF) { // REPLAY 파일 끝까지 문자 읽기
+                fout.put(c); // 읽은 문자 기록
+            }
+            fin.close();
+            fout.close();
+
+            break; // save를 한 후에 메뉴로 빠져나오기
         }
     }
 }
@@ -805,7 +1105,7 @@ int Minesweeper::QuitGame()
 
 void Minesweeper::SetBombs(double para)
 {
-    BOMBS_CNT = (ROW * COL) * para; // 폭탄 개수 : 맵 크기의 10% 생성
+    BOMBS_CNT = (ROW * COL) * para; // 폭탄 개수 : 맵 크기 * para 만큼 생성
     int bombs_cnt = 0;
     while (bombs_cnt != BOMBS_CNT) {
         int x = (rand() % ROW) + 1; // 1~ ROW 까지의 랜덤값
@@ -955,7 +1255,7 @@ void Minesweeper::deleteMem()
 void Minesweeper::saveData(int _k, int _i, int _j)
 {   
     if (!isLose && !isWin) { // 이기거나 지기 전까지만 데이터를 저장함
-        ofstream save("data.txt", ios::app);
+        ofstream save("replay.txt", ios::app);
         save << _k << " " << _i << " " << _j << endl;
         save.close();
     }
@@ -963,13 +1263,8 @@ void Minesweeper::saveData(int _k, int _i, int _j)
 
 void Minesweeper::clearData()
 {
-    ofstream clear("data.txt");
+    ofstream clear("replay.txt");
     clear.close();
-}
-
-void Minesweeper::replay()
-{
-
 }
 
 void Minesweeper::drawTable()

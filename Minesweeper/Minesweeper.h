@@ -30,19 +30,20 @@ private:
 	Tile** table;
 	bool isLose = false;
 	bool isWin = false;
+	int stage = 0; // 
 public:
 	Minesweeper();
 	~Minesweeper();
 	int start();
 	void DrawReadyGame();
-	void DrawLoadGame();
+	void DrawStartGame_Load();
 	void DrawStartGame_Easy();
 	void DrawStartGame_Standard();
 	void DrawStartGame_Hard();
 	double SelectMapSize_Easy();
 	double SelectMapSize_Standard();
 	double SelectMapSize_Hard();
-	void LoadGame();
+	void StartGame_Load();
 	void StartGame_Easy();
 	void StartGame_Standard();
 	void StartGame_Hard();
@@ -58,7 +59,6 @@ public:
 	void deleteMem();
 	void saveData(int _k, int _i, int _j);
 	void clearData();
-	void replay();
 	void drawTable();
 
 	void gotoxy(int x, int y) //콘솔 커서 이동
