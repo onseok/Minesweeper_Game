@@ -10,6 +10,7 @@ using namespace std;
 Minesweeper::Minesweeper()
     :ROW(0), COL(0), BOMBS_CNT(0)
 {
+    clearData();
 }
 
 Minesweeper::~Minesweeper()
@@ -88,8 +89,73 @@ void Minesweeper::DrawStartGame_Easy()
         cout << "            게 임 오 버            ";
         gotoxy(30, 14);
         cout << "===================================";
-        gotoxy(30, 20);
-        cout << "  c 키 혹은 C 키  : 메뉴로 돌아가기";
+
+
+        drawTable(); // 게임 오버된 상태 보여주기
+
+        Sleep(3000); // 3초 후에 리플레이 시작
+
+        gotoxy(30, 10);
+        cout << "===================================";
+        gotoxy(30, 12);
+        cout << "         ▶  리 플 레 이           ";
+        gotoxy(30, 14);
+        cout << "===================================";
+
+
+        for (int i = 1; i <= COL; i++) {
+            for (int j = 1; j <= ROW; j++) {
+                table[i][j].clicked = false;
+                table[i][j].flag = false;
+            }
+        }
+        isLose = false;
+        isWin = false;
+
+        drawTable();
+
+        ifstream load("data.txt", ios::in);
+
+        while (!load.eof()) {
+            int keyboard, _x, _y;
+      
+            load >> keyboard >> _x >> _y;
+
+            if (keyboard == SPACE) {
+                // 타일을 열어주는 함수
+                if (!table[_x][_y].clicked) {
+                    OpenTile(_x, _y);
+
+                    // 남은 UNCLICK 개수 (FLAG와 무관)가 폭탄개수와 동일하면 승리
+                    if (remainTiles() == BOMBS_CNT) {
+                        Win();
+                        isWin = true;
+                    }
+                    else {
+                        isWin = false;
+                    }
+                }
+            }
+            if (keyboard == 70 || keyboard == 102) {  // f키나 F키를 받을 경우 (깃발 생성)
+                if (table[_x][_y].clicked == false) {
+                    table[_x][_y].flag = !table[_x][_y].flag;
+                }
+            }
+
+            Sleep(1000);
+
+            drawTable();
+        }
+        gotoxy(30, 10);
+        cout << "===================================";
+        gotoxy(30, 12);
+        cout << "         ▷  리 플 레 이           ";
+        gotoxy(30, 14);
+        cout << "===================================";
+        gotoxy(30, 16);
+        cout << "  메뉴로 돌아가려면 C키를 누르세요";
+
+        system("pause>nul");
     }
     else if (!isLose && isWin) {
         gotoxy(30, 10);
@@ -107,8 +173,10 @@ void Minesweeper::DrawStartGame_Easy()
         gotoxy(30, 11);
         cout << "            난이도 (하)            ";
         gotoxy(30, 13);
-        cout << "        폭탄 갯수 => " << BOMBS_CNT << "개";
-        gotoxy(30, 14);
+        cout << "              " << ROW << " X " << COL;
+        gotoxy(30, 15);
+        cout << "         폭탄 갯수 => " << BOMBS_CNT << "개";
+        gotoxy(30, 16);
         cout << "===================================";
         gotoxy(30, 18);
         cout << " 스페이스 바(SPACE) : 블록 선택하기";
@@ -116,30 +184,13 @@ void Minesweeper::DrawStartGame_Easy()
         cout << "   f 키 혹은 F 키   : 깃발 표시하기";
         gotoxy(30, 22);
         cout << "   s 키 혹은 S 키   : 게임 저장하기";
+        gotoxy(30, 24);
+        cout << "   c 키 혹은 C 키   : 뒤로 돌아가기";
+
+        drawTable();
     }
 
-    int y = 10;
 
-    gotoxy(10, y);
-    
-    //for (int i = 1; i <= COL; i++) {
-    //    for (int j = 1; j <= ROW; j++) {
-    //        if (table[i][j].val == BOMB) {
-    //            cout << "* ";
-    //        }
-    //        else {
-    //            cout << table[i][j].val << " ";
-    //        }
-    //    }
-    //    gotoxy(10, ++y);
-    //}
-
-    for (int i = 1; i <= COL; i++) {
-        for (int j = 1; j <= ROW; j++) {
-            cout << table[i][j].state();
-        }
-        gotoxy(10, ++y);
-    }
 }
 
 void Minesweeper::DrawStartGame_Standard()
@@ -156,8 +207,73 @@ void Minesweeper::DrawStartGame_Standard()
         cout << "            게 임 오 버            ";
         gotoxy(30, 14);
         cout << "===================================";
-        gotoxy(30, 20);
-        cout << "  c 키 혹은 C 키  : 메뉴로 돌아가기";
+
+
+        drawTable(); // 게임 오버된 상태 보여주기
+
+        Sleep(3000); // 3초 후에 리플레이 시작
+
+        gotoxy(30, 10);
+        cout << "===================================";
+        gotoxy(30, 12);
+        cout << "         ▶  리 플 레 이           ";
+        gotoxy(30, 14);
+        cout << "===================================";
+
+
+        for (int i = 1; i <= COL; i++) {
+            for (int j = 1; j <= ROW; j++) {
+                table[i][j].clicked = false;
+                table[i][j].flag = false;
+            }
+        }
+        isLose = false;
+        isWin = false;
+
+        drawTable();
+
+        ifstream load("data.txt", ios::in);
+
+        while (!load.eof()) {
+            int keyboard, _x, _y;
+
+            load >> keyboard >> _x >> _y;
+
+            if (keyboard == SPACE) {
+                // 타일을 열어주는 함수
+                if (!table[_x][_y].clicked) {
+                    OpenTile(_x, _y);
+
+                    // 남은 UNCLICK 개수 (FLAG와 무관)가 폭탄개수와 동일하면 승리
+                    if (remainTiles() == BOMBS_CNT) {
+                        Win();
+                        isWin = true;
+                    }
+                    else {
+                        isWin = false;
+                    }
+                }
+            }
+            if (keyboard == 70 || keyboard == 102) {  // f키나 F키를 받을 경우 (깃발 생성)
+                if (table[_x][_y].clicked == false) {
+                    table[_x][_y].flag = !table[_x][_y].flag;
+                }
+            }
+
+            Sleep(1000);
+
+            drawTable();
+        }
+        gotoxy(30, 10);
+        cout << "===================================";
+        gotoxy(30, 12);
+        cout << "         ▷  리 플 레 이           ";
+        gotoxy(30, 14);
+        cout << "===================================";
+        gotoxy(30, 16);
+        cout << "  메뉴로 돌아가려면 C키를 누르세요";
+
+        system("pause>nul");
     }
     else if (!isLose && isWin) {
         gotoxy(30, 10);
@@ -175,8 +291,10 @@ void Minesweeper::DrawStartGame_Standard()
         gotoxy(30, 11);
         cout << "            난이도 (중)            ";
         gotoxy(30, 13);
-        cout << "        폭탄 갯수 => " << BOMBS_CNT << "개";
-        gotoxy(30, 14);
+        cout << "              " << ROW << " X " << COL;
+        gotoxy(30, 15);
+        cout << "         폭탄 갯수 => " << BOMBS_CNT << "개";
+        gotoxy(30, 16);
         cout << "===================================";
         gotoxy(30, 18);
         cout << " 스페이스 바(SPACE) : 블록 선택하기";
@@ -184,18 +302,13 @@ void Minesweeper::DrawStartGame_Standard()
         cout << "   f 키 혹은 F 키   : 깃발 표시하기";
         gotoxy(30, 22);
         cout << "   s 키 혹은 S 키   : 게임 저장하기";
+        gotoxy(30, 24);
+        cout << "   c 키 혹은 C 키   : 뒤로 돌아가기";
+
+        drawTable();
     }
 
-    int y = 10;
 
-    gotoxy(10, y);
-
-    for (int i = 1; i <= COL; i++) {
-        for (int j = 1; j <= ROW; j++) {
-            cout << table[i][j].state();
-        }
-        gotoxy(10, ++y);
-    }
 }
 
 void Minesweeper::DrawStartGame_Hard()
@@ -212,8 +325,73 @@ void Minesweeper::DrawStartGame_Hard()
         cout << "            게 임 오 버            ";
         gotoxy(30, 14);
         cout << "===================================";
-        gotoxy(30, 20);
-        cout << "  c 키 혹은 C 키  : 메뉴로 돌아가기";
+
+
+        drawTable(); // 게임 오버된 상태 보여주기
+
+        Sleep(3000); // 3초 후에 리플레이 시작
+
+        gotoxy(30, 10);
+        cout << "===================================";
+        gotoxy(30, 12);
+        cout << "         ▶  리 플 레 이           ";
+        gotoxy(30, 14);
+        cout << "===================================";
+
+
+        for (int i = 1; i <= COL; i++) {
+            for (int j = 1; j <= ROW; j++) {
+                table[i][j].clicked = false;
+                table[i][j].flag = false;
+            }
+        }
+        isLose = false;
+        isWin = false;
+
+        drawTable();
+
+        ifstream load("data.txt", ios::in);
+
+        while (!load.eof()) {
+            int keyboard, _x, _y;
+
+            load >> keyboard >> _x >> _y;
+
+            if (keyboard == SPACE) {
+                // 타일을 열어주는 함수
+                if (!table[_x][_y].clicked) {
+                    OpenTile(_x, _y);
+
+                    // 남은 UNCLICK 개수 (FLAG와 무관)가 폭탄개수와 동일하면 승리
+                    if (remainTiles() == BOMBS_CNT) {
+                        Win();
+                        isWin = true;
+                    }
+                    else {
+                        isWin = false;
+                    }
+                }
+            }
+            if (keyboard == 70 || keyboard == 102) {  // f키나 F키를 받을 경우 (깃발 생성)
+                if (table[_x][_y].clicked == false) {
+                    table[_x][_y].flag = !table[_x][_y].flag;
+                }
+            }
+
+            Sleep(1000);
+
+            drawTable();
+        }
+        gotoxy(30, 10);
+        cout << "===================================";
+        gotoxy(30, 12);
+        cout << "         ▷  리 플 레 이           ";
+        gotoxy(30, 14);
+        cout << "===================================";
+        gotoxy(30, 16);
+        cout << "  메뉴로 돌아가려면 C키를 누르세요";
+
+        system("pause>nul");
     }
     else if (!isLose && isWin) {
         gotoxy(30, 10);
@@ -231,8 +409,10 @@ void Minesweeper::DrawStartGame_Hard()
         gotoxy(30, 11);
         cout << "            난이도 (상)            ";
         gotoxy(30, 13);
-        cout << "        폭탄 갯수 => " << BOMBS_CNT << "개";
-        gotoxy(30, 14);
+        cout << "              " << ROW << " X " << COL;
+        gotoxy(30, 15);
+        cout << "         폭탄 갯수 => " << BOMBS_CNT << "개";
+        gotoxy(30, 16);
         cout << "===================================";
         gotoxy(30, 18);
         cout << " 스페이스 바(SPACE) : 블록 선택하기";
@@ -240,18 +420,13 @@ void Minesweeper::DrawStartGame_Hard()
         cout << "   f 키 혹은 F 키   : 깃발 표시하기";
         gotoxy(30, 22);
         cout << "   s 키 혹은 S 키   : 게임 저장하기";
+        gotoxy(30, 24);
+        cout << "   c 키 혹은 C 키   : 뒤로 돌아가기";
+
+        drawTable();
     }
 
-    int y = 10;
 
-    gotoxy(10, y);
-
-    for (int i = 1; i <= COL; i++) {
-        for (int j = 1; j <= ROW; j++) {
-            cout << table[i][j].state();
-        }
-        gotoxy(10, ++y);
-    }
 }
 
 double Minesweeper::SelectMapSize_Easy()
@@ -323,7 +498,7 @@ double Minesweeper::SelectMapSize_Hard()
 void Minesweeper::LoadGame()
 {
     DrawLoadGame();
-    system("pause>null");
+    system("pause>nul");
 }
 
 void Minesweeper::StartGame_Easy()
@@ -381,9 +556,13 @@ void Minesweeper::StartGame_Easy()
         }
         if (input == SPACE) //키보드 입력 받았는데 스페이스네?
         {   
-            // 타일을 열어주는 함수
             arr_i = y + 1;
             arr_j = x + 1;
+
+            // 데이터 저장 부분
+            saveData(input ,arr_i, arr_j);
+
+            // 타일을 열어주는 함수
             if (!table[arr_i][arr_j].clicked) {
                OpenTile(arr_i, arr_j);
 
@@ -400,6 +579,10 @@ void Minesweeper::StartGame_Easy()
         if (input == 70 || input == 102) {  // f키나 F키를 받을 경우 (깃발 생성)
             arr_i = y + 1;
             arr_j = x + 1;
+
+            // 데이터 저장 부분
+            saveData(input, arr_i, arr_j);
+
             if (table[arr_i][arr_j].clicked == false) {
                 table[arr_i][arr_j].flag = !table[arr_i][arr_j].flag;
             }
@@ -407,7 +590,12 @@ void Minesweeper::StartGame_Easy()
         if (input == 67 || input == 99) { // c키나 C키를 받을 경우 되돌아가기
             isLose = false;
             isWin = false;
+            deleteMem(); // 동적할당한 메모리 삭제하기
+            clearData();
             break;
+        }
+        if (input == 83 || input == 115) { // s나 S키를 받을 경우 게임 저장하기
+            // 게임을 저장하는 함수
         }
     }
 }
@@ -467,16 +655,33 @@ void Minesweeper::StartGame_Standard()
         }
         if (input == SPACE) //키보드 입력 받았는데 스페이스네?
         {
-            // 타일을 열어주는 함수
             arr_i = y + 1;
             arr_j = x + 1;
+
+            // 데이터 저장 부분
+            saveData(input, arr_i, arr_j);
+
+            // 타일을 열어주는 함수
             if (!table[arr_i][arr_j].clicked) {
                 OpenTile(arr_i, arr_j);
+
+                // 남은 UNCLICK 개수 (FLAG와 무관)가 폭탄개수와 동일하면 승리
+                if (remainTiles() == BOMBS_CNT) {
+                    Win();
+                    isWin = true;
+                }
+                else {
+                    isWin = false;
+                }
             }
         }
         if (input == 70 || input == 102) {  // f키나 F키를 받을 경우 (깃발 생성)
             arr_i = y + 1;
             arr_j = x + 1;
+
+            // 데이터 저장 부분
+            saveData(input, arr_i, arr_j);
+
             if (table[arr_i][arr_j].clicked == false) {
                 table[arr_i][arr_j].flag = !table[arr_i][arr_j].flag;
             }
@@ -484,7 +689,12 @@ void Minesweeper::StartGame_Standard()
         if (input == 67 || input == 99) { // c키나 C키를 받을 경우 되돌아가기
             isLose = false;
             isWin = false;
+            deleteMem(); // 동적할당한 메모리 삭제하기
+            clearData();
             break;
+        }
+        if (input == 83 || input == 115) { // s나 S키를 받을 경우 게임 저장하기
+            // 게임을 저장하는 함수
         }
     }
 }
@@ -544,16 +754,33 @@ void Minesweeper::StartGame_Hard()
         }
         if (input == SPACE) //키보드 입력 받았는데 스페이스네?
         {
-            // 타일을 열어주는 함수
             arr_i = y + 1;
             arr_j = x + 1;
+
+            // 데이터 저장 부분
+            saveData(input, arr_i, arr_j);
+
+            // 타일을 열어주는 함수
             if (!table[arr_i][arr_j].clicked) {
                 OpenTile(arr_i, arr_j);
+
+                // 남은 UNCLICK 개수 (FLAG와 무관)가 폭탄개수와 동일하면 승리
+                if (remainTiles() == BOMBS_CNT) {
+                    Win();
+                    isWin = true;
+                }
+                else {
+                    isWin = false;
+                }
             }
         }
         if (input == 70 || input == 102) {  // f키나 F키를 받을 경우 (깃발 생성)
             arr_i = y + 1;
             arr_j = x + 1;
+
+            // 데이터 저장 부분
+            saveData(input, arr_i, arr_j);
+
             if (table[arr_i][arr_j].clicked == false) {
                 table[arr_i][arr_j].flag = !table[arr_i][arr_j].flag;
             }
@@ -561,7 +788,12 @@ void Minesweeper::StartGame_Hard()
         if (input == 67 || input == 99) { // c키나 C키를 받을 경우 되돌아가기
             isLose = false;
             isWin = false;
+            deleteMem(); // 동적할당한 메모리 삭제하기
+            clearData();
             break;
+        }
+        if (input == 83 || input == 115) { // s나 S키를 받을 경우 게임 저장하기
+            // 게임을 저장하는 함수
         }
     }
 }
@@ -710,6 +942,48 @@ void Minesweeper::Lose()
         }
     }
     isLose = true;
+}
+
+void Minesweeper::deleteMem()
+{
+    for (int i = 0; i < COL + 2; i++) {
+        delete table[i];
+    }
+    delete table;
+}
+
+void Minesweeper::saveData(int _k, int _i, int _j)
+{   
+    if (!isLose && !isWin) { // 이기거나 지기 전까지만 데이터를 저장함
+        ofstream save("data.txt", ios::app);
+        save << _k << " " << _i << " " << _j << endl;
+        save.close();
+    }
+}
+
+void Minesweeper::clearData()
+{
+    ofstream clear("data.txt");
+    clear.close();
+}
+
+void Minesweeper::replay()
+{
+
+}
+
+void Minesweeper::drawTable()
+{
+    int y = 10;
+
+    gotoxy(10, y);
+
+    for (int i = 1; i <= COL; i++) {
+        for (int j = 1; j <= ROW; j++) {
+            cout << table[i][j].state();
+        }
+        gotoxy(10, ++y);
+    }
 }
 
 MENU Minesweeper::ReadyGame()

@@ -55,6 +55,11 @@ public:
 	int remainTiles();
 	void Win();
 	void Lose();
+	void deleteMem();
+	void saveData(int _k, int _i, int _j);
+	void clearData();
+	void replay();
+	void drawTable();
 
 	void gotoxy(int x, int y) //콘솔 커서 이동
 	{
