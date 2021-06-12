@@ -25,7 +25,7 @@ public:
 		if (clicked && !bomb) {
 			return " " + to_string(val);
 		}
-		if (flag) {
+		if (!clicked && flag) {
 			return "¢¹";
 		}
 		if (clicked && bomb) {

@@ -67,54 +67,17 @@ void Minesweeper::DrawReadyGame()
     cout << "[종료하기]";
 }
 
-void Minesweeper::DrawStartGame_Load()
+void Minesweeper::DrawStartGame_Load() // 방향키를 움직일 때마다 이 함수가 매번 호출 됨.
 {
-    ifstream loadData("data.txt");
-    string line;
-    vector<string> replay;
-    int cnt = 0;
-    int keyboard, _x, _y;
-
     switch (stage)
     {
     case 1:
-         //리플레이 맨 마지막 적용
-        while (getline(loadData, line)) {
-            replay.push_back(line);
-            if (cnt >= COL - 1) {
-                loadData >> keyboard >> _x >> _y;
-
-                if (keyboard == SPACE) {
-                    // 타일을 열어주는 함수
-                    if (!table[_x][_y].clicked) {
-                        OpenTile(_x, _y);
-
-                        // 남은 UNCLICK 개수 (FLAG와 무관)가 폭탄개수와 동일하면 승리
-                        if (remainTiles() == BOMBS_CNT) {
-                            Win();
-                            isWin = true;
-                        }
-                        else {
-                            isWin = false;
-                        }
-                    }
-                }
-                if (keyboard == 70 || keyboard == 102) {  // f키나 F키를 받을 경우 (깃발 생성)
-                    if (table[_x][_y].clicked == false) {
-                        table[_x][_y].flag = !table[_x][_y].flag;
-                    }
-                }
-            }
-            cnt++;
-        }
         DrawStartGame_Easy();
         break;
     case 2:
-        // 리플레이 맨 마지막 적용
         DrawStartGame_Standard();
         break;
     case 3:
-        // 리플레이 맨 마지막 적용
         DrawStartGame_Hard();
         break;
     }
@@ -621,6 +584,8 @@ void Minesweeper::StartGame_Load()
 
     int arr_i;
     int arr_j;
+
+    DrawInitGame();
 
     while (true) {
 
@@ -1278,6 +1243,49 @@ void Minesweeper::drawTable()
             cout << table[i][j].state();
         }
         gotoxy(10, ++y);
+    }
+}
+
+void Minesweeper::DrawInitGame()
+{
+    ifstream loadData("data.txt");
+    string line;
+    vector<string> replay;
+    int cnt = 0;
+    int keyboard, _x, _y;
+
+    //리플레이 맨 마지막 적용
+
+    for (int i = 1; i <= COL; i++) {
+        for (int j = 1; j <= ROW; j++) {
+            loadData >> dump[i][j];
+        }
+    }
+
+    while (!loadData.eof()) {
+
+        loadData >> keyboard >> _x >> _y;
+
+        if (keyboard == SPACE) {
+            // 타일을 열어주는 함수
+            if (!table[_x][_y].clicked) {
+                OpenTile(_x, _y);
+
+                // 남은 UNCLICK 개수 (FLAG와 무관)가 폭탄개수와 동일하면 승리
+                if (remainTiles() == BOMBS_CNT) {
+                    Win();
+                    isWin = true;
+                }
+                else {
+                    isWin = false;
+                }
+            }
+        }
+        else if (keyboard == 70 || keyboard == 102) {  // f키나 F키를 받을 경우 (깃발 생성)
+            if (table[_x][_y].clicked == false) {
+                    table[_x][_y].flag = !table[_x][_y].flag;
+            }
+        }
     }
 }
 

@@ -31,6 +31,7 @@ private:
 	bool isLose = false;
 	bool isWin = false;
 	int stage = 0; // 
+	int dump[100][100];
 public:
 	Minesweeper();
 	~Minesweeper();
@@ -60,6 +61,7 @@ public:
 	void saveData(int _k, int _i, int _j);
 	void clearData();
 	void drawTable();
+	void DrawInitGame();
 
 	void gotoxy(int x, int y) //콘솔 커서 이동
 	{
