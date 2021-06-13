@@ -683,7 +683,7 @@ double Minesweeper::SelectMapSize_Easy()
     gotoxy(14, 20);
     cout << "############################################"; gotoxy(14, 21);
     cout << "##                                        ##"; gotoxy(14, 22);
-    cout << "##  맵 크기의 20% 만큼 폭탄이 생성됩니다  ##"; gotoxy(14, 23);
+    cout << "##  맵 크기의 10% 만큼 폭탄이 생성됩니다  ##"; gotoxy(14, 23);
     cout << "##                                        ##"; gotoxy(14, 24);
     cout << "##           숫자 누르고 엔터 X 2         ##"; gotoxy(14, 25);
     cout << "##                                        ##"; gotoxy(14, 26);
