@@ -65,6 +65,26 @@ public:
 	void drawTable();
 	void DrawInitGame();
 	void PrintLogo();
+	void PrintSave();
+	void PrintQuit();
+	void PrintLoad();
+	void PrintEasy();
+	void PrintStandard();
+	void PrintHard();
+
+	void CursorView(char show) {  
+		HANDLE hConsole;
+		CONSOLE_CURSOR_INFO ConsoleCursor;
+
+		hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+		ConsoleCursor.bVisible = show;
+		ConsoleCursor.dwSize = 1;
+
+		SetConsoleCursorInfo(hConsole, &ConsoleCursor);
+	}
+	// CursorView(true); → 커서 보이기
+	// CursorView(false); → 커서 숨기기
 
 	void gotoxy(int x, int y) //콘솔 커서 이동
 	{

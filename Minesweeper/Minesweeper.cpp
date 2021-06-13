@@ -112,6 +112,8 @@ void Minesweeper::DrawStartGame_Easy()
     kws::printName();
 
     if (isLose && !isWin) {
+        CursorView(false);
+
         gotoxy(30, 10);
         cout << "===================================";
         gotoxy(30, 12);
@@ -187,6 +189,8 @@ void Minesweeper::DrawStartGame_Easy()
         system("pause>nul");
     }
     else if (!isLose && isWin) {
+        CursorView(false);
+
         gotoxy(30, 10);
         cout << "===================================";
         gotoxy(30, 12);
@@ -293,6 +297,8 @@ void Minesweeper::DrawStartGame_Standard()
     kws::printName();
 
     if (isLose && !isWin) {
+        CursorView(false);
+
         gotoxy(30, 10);
         cout << "===================================";
         gotoxy(30, 12);
@@ -368,6 +374,8 @@ void Minesweeper::DrawStartGame_Standard()
         system("pause>nul");
     }
     else if (!isLose && isWin) {
+        CursorView(false);
+
         gotoxy(30, 10);
         cout << "===================================";
         gotoxy(30, 12);
@@ -478,6 +486,8 @@ void Minesweeper::DrawStartGame_Hard()
     kws::printName();
 
     if (isLose && !isWin) {
+        CursorView(false);
+
         gotoxy(30, 10);
         cout << "===================================";
         gotoxy(30, 12);
@@ -553,6 +563,8 @@ void Minesweeper::DrawStartGame_Hard()
         system("pause>nul");
     }
     else if (!isLose && isWin) {
+        CursorView(false);
+
         gotoxy(30, 10);
         cout << "===================================";
         gotoxy(30, 12);
@@ -660,19 +672,41 @@ double Minesweeper::SelectMapSize_Easy()
     gotoxy(1, 1);
     /*cout << "201710321 김원석";*/
     kws::printName();
-    gotoxy(10, 8);
-    cout << "난이도 하 (맵 크기의 10% 지뢰 생성)";
-    gotoxy(10, 10);
-    cout << "맵의 가로 크기 입력 : ";
+
+    PrintEasy();
+
+    gotoxy(23, 18);
+    cout << "난이도 하";
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 글씨색상 변경 : 흰색
+    
+    gotoxy(14, 20);
+    cout << "############################################"; gotoxy(14, 21);
+    cout << "##                                        ##"; gotoxy(14, 22);
+    cout << "##  맵 크기의 20% 만큼 폭탄이 생성됩니다  ##"; gotoxy(14, 23);
+    cout << "##                                        ##"; gotoxy(14, 24);
+    cout << "##           숫자 누르고 엔터 X 2         ##"; gotoxy(14, 25);
+    cout << "##                                        ##"; gotoxy(14, 26);
+    cout << "##        ←                     →       ##"; gotoxy(14, 27);
+    cout << "##      ↑ □□□□□□□□□□□□       ##"; gotoxy(14, 28);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 29);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 30);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 31);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 32);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 33);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 34);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 35);
+    cout << "##      ↓ □□□□□□□□□□□□       ##"; gotoxy(14, 36);
+    cout << "##                                        ##"; gotoxy(14, 37);
+    cout << "############################################"; gotoxy(14, 38);
+
+    gotoxy(25, 26);
     cin >> ROW;
-    gotoxy(10, 12);
-    cout << "맵의 세로 크기 입력 : ";
+
+    gotoxy(18, 31);
     cin >> COL;
 
-    //table = new Tile * [COL + 2];
-    //for (int i = 0; i < COL + 2; ++i) {
-    //    table[i] = new Tile[ROW + 2];
-    //}
+    CursorView(true); // 커서 보이게 하기
 
     table = make_unique<unique_ptr<Tile[]>[]>(COL + 2);
     for (int i = 0; i < COL + 2; ++i) {
@@ -688,19 +722,41 @@ double Minesweeper::SelectMapSize_Standard()
     gotoxy(1, 1);
     /*cout << "201710321 김원석";*/
     kws::printName();
-    gotoxy(10, 8);
-    cout << "난이도 중 (맵 크기의 20% 지뢰 생성)";
-    gotoxy(10, 10);
-    cout << "맵의 가로 크기 입력 : ";
+
+    PrintStandard();
+
+    gotoxy(23, 18);
+    cout << "난이도 중";
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 글씨색상 변경 : 흰색
+
+    gotoxy(14, 20);
+    cout << "############################################"; gotoxy(14, 21);
+    cout << "##                                        ##"; gotoxy(14, 22);
+    cout << "##  맵 크기의 20% 만큼 폭탄이 생성됩니다  ##"; gotoxy(14, 23);
+    cout << "##                                        ##"; gotoxy(14, 24);
+    cout << "##           숫자 누르고 엔터 X 2         ##"; gotoxy(14, 25);
+    cout << "##                                        ##"; gotoxy(14, 26);
+    cout << "##        ←                     →       ##"; gotoxy(14, 27);
+    cout << "##      ↑ □□□□□□□□□□□□       ##"; gotoxy(14, 28);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 29);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 30);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 31);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 32);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 33);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 34);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 35);
+    cout << "##      ↓ □□□□□□□□□□□□       ##"; gotoxy(14, 36);
+    cout << "##                                        ##"; gotoxy(14, 37);
+    cout << "############################################"; gotoxy(14, 38);
+
+    gotoxy(25, 26);
     cin >> ROW;
-    gotoxy(10, 12);
-    cout << "맵의 세로 크기 입력 : ";
+    
+    gotoxy(18, 31);
     cin >> COL;
 
-    //table = new Tile * [COL + 2];
-    //for (int i = 0; i < COL + 2; ++i) {
-    //    table[i] = new Tile[ROW + 2];
-    //}
+    CursorView(true); // 커서 보이게 하기
 
     table = make_unique<unique_ptr<Tile[]>[]>(COL + 2);
     for (int i = 0; i < COL + 2; ++i) {
@@ -716,19 +772,41 @@ double Minesweeper::SelectMapSize_Hard()
     gotoxy(1, 1);
     /*cout << "201710321 김원석";*/
     kws::printName();
-    gotoxy(10, 8);
-    cout << "난이도 상 (맵 크기의 30% 지뢰 생성)";
-    gotoxy(10, 10);
-    cout << "맵의 가로 크기 입력 : ";
+
+    PrintHard();
+
+    gotoxy(23, 18);
+    cout << "난이도 상";
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 글씨색상 변경 : 흰색
+
+    gotoxy(14, 21);
+    cout << "############################################"; gotoxy(14, 22);
+    cout << "##                                        ##"; gotoxy(14, 23);
+    cout << "##  맵 크기의 30% 만큼 폭탄이 생성됩니다  ##"; gotoxy(14, 24);
+    cout << "##                                        ##"; gotoxy(14, 25);
+    cout << "##           숫자 누르고 엔터 X 2         ##"; gotoxy(14, 26);
+    cout << "##                                        ##"; gotoxy(14, 27);
+    cout << "##        ←                     →       ##"; gotoxy(14, 28);
+    cout << "##      ↑ □□□□□□□□□□□□       ##"; gotoxy(14, 29);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 30);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 31);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 32);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 33);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 34);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 35);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 36);
+    cout << "##      ↓ □□□□□□□□□□□□       ##"; gotoxy(14, 37);
+    cout << "##                                        ##"; gotoxy(14, 38);
+    cout << "############################################"; gotoxy(14, 39);
+
+    gotoxy(25, 27);
     cin >> ROW;
-    gotoxy(10, 12);
-    cout << "맵의 세로 크기 입력 : ";
+
+    gotoxy(18, 32);
     cin >> COL;
 
-    //table = new Tile * [COL + 2];
-    //for (int i = 0; i < COL + 2; ++i) {
-    //    table[i] = new Tile[ROW + 2];
-    //}
+    CursorView(true); // 커서 보이게 하기
 
     table = make_unique<unique_ptr<Tile[]>[]>(COL + 2);
     for (int i = 0; i < COL + 2; ++i) {
@@ -826,6 +904,10 @@ void Minesweeper::StartGame_Load()
     int arr_i;
     int arr_j;
 
+    PrintLoad();
+
+    CursorView(true); // 커서 보이게 하기
+
     DrawInitGame();
 
     while (true) {
@@ -907,6 +989,7 @@ void Minesweeper::StartGame_Load()
             isWin = false;
            /* deleteMem();*/ // 동적할당한 메모리 삭제하기
             clearData();
+            PrintQuit();
             break;
         }
         if (input == 83 || input == 115) { // s나 S키를 받을 경우 게임 저장하기
@@ -932,6 +1015,8 @@ void Minesweeper::StartGame_Load()
             }
             fin.close();
             fout.close();
+
+            PrintSave();
 
             break; // save를 한 후에 메뉴로 빠져나오기
         }
@@ -1029,6 +1114,7 @@ void Minesweeper::StartGame_Easy()
             isWin = false;
             /*deleteMem();*/ // 동적할당한 메모리 삭제하기
             clearData();
+            PrintQuit();
             break;
         }
         if (input == 83 || input == 115) { // s나 S키를 받을 경우 게임 저장하기
@@ -1054,6 +1140,8 @@ void Minesweeper::StartGame_Easy()
             }
             fin.close();
             fout.close();
+
+            PrintSave();
 
             break; // save를 한 후에 메뉴로 빠져나오기
         }
@@ -1151,6 +1239,7 @@ void Minesweeper::StartGame_Standard()
             isWin = false;
             /*deleteMem();*/ // 동적할당한 메모리 삭제하기
             clearData();
+            PrintQuit();
             break;
         }
         if (input == 83 || input == 115) { // s나 S키를 받을 경우 게임 저장하기
@@ -1176,6 +1265,8 @@ void Minesweeper::StartGame_Standard()
             }
             fin.close();
             fout.close();
+
+            PrintSave();
 
             break; // save를 한 후에 메뉴로 빠져나오기
         }
@@ -1273,6 +1364,7 @@ void Minesweeper::StartGame_Hard()
             isWin = false;
             /*deleteMem();*/ // 동적할당한 메모리 삭제하기
             clearData();
+            PrintQuit();
             break;
         }
         if (input == 83 || input == 115) { // s나 S키를 받을 경우 게임 저장하기
@@ -1298,6 +1390,8 @@ void Minesweeper::StartGame_Hard()
             }
             fin.close();
             fout.close();
+
+            PrintSave();
 
             break; // save를 한 후에 메뉴로 빠져나오기
         }
@@ -1545,17 +1639,87 @@ void Minesweeper::PrintLogo()
     cout << "※                ※    ※※※※※※※※※※    ※                ※                    ※";
 }
 
+void Minesweeper::PrintSave()
+{
+    system("cls");
+    gotoxy(20, 20);
+    cout << "저     장     중  . . .";
+    CursorView(false); // 커서 숨기기
+    Sleep(1000);
+}
+
+void Minesweeper::PrintQuit()
+{
+    system("cls");
+    gotoxy(20, 20);
+    cout << "나   가   는   중  . . .";
+    CursorView(false); // 커서 숨기기
+    Sleep(800);
+}
+
+void Minesweeper::PrintLoad()
+{
+    system("cls");
+    gotoxy(20, 20);
+    cout << "불  러  오  는  중  . . .";
+    CursorView(false); // 커서 숨기기
+    Sleep(1000);
+}
+
+void Minesweeper::PrintEasy()
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);  // 글씨색상 변경 : 어두운 하늘
+    gotoxy(20, 8);
+    cout << "※※※※※※※※※※"; gotoxy(20, 9);
+    cout << "        ※※        "; gotoxy(20, 10);
+    cout << "        ※※        "; gotoxy(20, 11);
+    cout << "        ※※※      "; gotoxy(20, 12);
+    cout << "        ※※※※    "; gotoxy(20, 13);
+    cout << "        ※※  ※※  "; gotoxy(20, 14);
+    cout << "        ※※        "; gotoxy(20, 15);
+    cout << "        ※※        ";
+}
+
+void Minesweeper::PrintStandard()
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);  // 글씨색상 변경 : 어두운 노랑
+    gotoxy(20, 8);
+    cout << "        ※※        "; gotoxy(20, 9);
+    cout << "        ※※        "; gotoxy(20, 10);
+    cout << "  ※※※※※※※※  "; gotoxy(20, 11);
+    cout << "  ※    ※※    ※  "; gotoxy(20, 12);
+    cout << "  ※    ※※    ※  "; gotoxy(20, 13);
+    cout << "  ※※※※※※※※  "; gotoxy(20, 14);
+    cout << "        ※※        "; gotoxy(20, 15);
+    cout << "        ※※        ";
+}
+
+void Minesweeper::PrintHard()
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);  // 글씨색상 변경 : 어두운 보라
+    gotoxy(20, 8);
+    cout << "        ※※        "; gotoxy(20, 9);
+    cout << "        ※※        "; gotoxy(20, 10);
+    cout << "        ※※        "; gotoxy(20, 11);
+    cout << "        ※※※※※  "; gotoxy(20, 12);
+    cout << "        ※※        "; gotoxy(20, 13);
+    cout << "        ※※        "; gotoxy(20, 14);
+    cout << "        ※※        "; gotoxy(20, 15);
+    cout << "※※※※※※※※※※"; gotoxy(20, 16);
+    cout << "※※※※※※※※※※";
+}
+
 MENU Minesweeper::ReadyGame()
 {
-    int y = 0;                //커서의 y위치
-    int input = 0;            //키보드 입력을 받을 변수
-    while (true)            //게임 루프
+    CursorView(false); // 커서 숨기기
+    int y = 0;                // 커서의 y위치
+    int input = 0;            // 키보드 입력을 받을 변수
+    while (true)            // 게임 루프
     {
-        DrawReadyGame();    //준비화면 그리기
+        DrawReadyGame();    // 준비화면 그리기
 
         //-------------------
-        //DrawUserCursor 함수
-        if (y <= 0)        //커서가 위로 그만 올라가게 
+        if (y <= 0)        // 커서가 위로 그만 올라가게 
         {
             y = 0;
         }
