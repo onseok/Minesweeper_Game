@@ -26,17 +26,12 @@
 #include <vector>
 #include <conio.h>
 #include <windows.h>
+#include <crtdbg.h>
 #include "Minesweeper.h"
 #include "Tile.h"
+#define _CRTDBG_MAP_ALLOC
 
 using namespace std;
-
-namespace kws {
-	void printName() {
-		cout << "학번 : 201710321 이름 : 김원석" << '\n' << endl;
-	}
-}
-
 
 //콘솔 크기, 타이틀
 void SetConsoleView()
@@ -45,9 +40,9 @@ void SetConsoleView()
 	system("title l Minesweeper_Game l made by Kim Won Seok l");    // 타이틀 정하기
 }
 
-
-
 int main(void) {
+
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	srand((unsigned)time(NULL)); 
 
