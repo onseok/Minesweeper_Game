@@ -28,8 +28,8 @@ private:
 	int ROW; // 맵의 가로 길이
 	int COL; // 맵의 세로 길이
 	int BOMBS_CNT; // 폭탄의 갯수
-	//Tile** table;
-	unique_ptr<unique_ptr<Tile[]>[]> table; // 유니크 포인터
+	Tile** table;
+	//unique_ptr<unique_ptr<Tile[]>[]> table; // 유니크 포인터
 	bool isLose = false;
 	bool isWin = false;
 	int stage = 0; // 
@@ -59,7 +59,7 @@ public:
 	int remainTiles();
 	void Win();
 	void Lose();
-	//void deleteMem();
+	void deleteMem();
 	void saveData(int _k, int _i, int _j);
 	void clearData();
 	void drawTable();

@@ -708,10 +708,15 @@ double Minesweeper::SelectMapSize_Easy()
 
     CursorView(true); // 커서 보이게 하기
 
-    table = make_unique<unique_ptr<Tile[]>[]>(COL + 2);
+    table = new Tile * [COL + 2];
     for (int i = 0; i < COL + 2; ++i) {
-        table[i] = make_unique<Tile[]>(ROW + 2);
+        table[i] = new Tile[ROW + 2];
     }
+
+    //table = make_unique<unique_ptr<Tile[]>[]>(COL + 2);
+    //for (int i = 0; i < COL + 2; ++i) {
+    //    table[i] = make_unique<Tile[]>(ROW + 2);
+    //}
 
     return 0.1;
 }
@@ -758,10 +763,14 @@ double Minesweeper::SelectMapSize_Standard()
 
     CursorView(true); // 커서 보이게 하기
 
-    table = make_unique<unique_ptr<Tile[]>[]>(COL + 2);
+    table = new Tile * [COL + 2];
     for (int i = 0; i < COL + 2; ++i) {
-        table[i] = make_unique<Tile[]>(ROW + 2);
+        table[i] = new Tile[ROW + 2];
     }
+    //table = make_unique<unique_ptr<Tile[]>[]>(COL + 2);
+    //for (int i = 0; i < COL + 2; ++i) {
+    //    table[i] = make_unique<Tile[]>(ROW + 2);
+    //}
 
     return 0.2;
 }
@@ -808,10 +817,15 @@ double Minesweeper::SelectMapSize_Hard()
 
     CursorView(true); // 커서 보이게 하기
 
-    table = make_unique<unique_ptr<Tile[]>[]>(COL + 2);
+    table = new Tile * [COL + 2];
     for (int i = 0; i < COL + 2; ++i) {
-        table[i] = make_unique<Tile[]>(ROW + 2);
+        table[i] = new Tile[ROW + 2];
     }
+
+    //table = make_unique<unique_ptr<Tile[]>[]>(COL + 2);
+    //for (int i = 0; i < COL + 2; ++i) {
+    //    table[i] = make_unique<Tile[]>(ROW + 2);
+    //}
 
     return 0.3;
 }
@@ -842,14 +856,14 @@ void Minesweeper::StartGame_Load()
     // ==========================
 
     // table 객체 생성
-    //table = new Tile * [COL + 2];
-    //for (int i = 0; i < COL + 2; ++i) {
-    //    table[i] = new Tile[ROW + 2];
-    //}
-    table = make_unique<unique_ptr<Tile[]>[]>(COL + 2);
+    table = new Tile * [COL + 2];
     for (int i = 0; i < COL + 2; ++i) {
-        table[i] = make_unique<Tile[]>(ROW + 2);
+        table[i] = new Tile[ROW + 2];
     }
+    //table = make_unique<unique_ptr<Tile[]>[]>(COL + 2);
+    //for (int i = 0; i < COL + 2; ++i) {
+    //    table[i] = make_unique<Tile[]>(ROW + 2);
+    //}
     // ==========================
 
     // table 초기화
@@ -987,7 +1001,7 @@ void Minesweeper::StartGame_Load()
         if (input == 67 || input == 99) { // c키나 C키를 받을 경우 되돌아가기
             isLose = false;
             isWin = false;
-           /* deleteMem();*/ // 동적할당한 메모리 삭제하기
+            deleteMem(); // 동적할당한 메모리 삭제하기
             clearData();
             PrintQuit();
             break;
@@ -1112,7 +1126,7 @@ void Minesweeper::StartGame_Easy()
         if (input == 67 || input == 99) { // c키나 C키를 받을 경우 되돌아가기
             isLose = false;
             isWin = false;
-            /*deleteMem();*/ // 동적할당한 메모리 삭제하기
+            deleteMem(); // 동적할당한 메모리 삭제하기
             clearData();
             PrintQuit();
             break;
@@ -1237,7 +1251,7 @@ void Minesweeper::StartGame_Standard()
         if (input == 67 || input == 99) { // c키나 C키를 받을 경우 되돌아가기
             isLose = false;
             isWin = false;
-            /*deleteMem();*/ // 동적할당한 메모리 삭제하기
+            deleteMem(); // 동적할당한 메모리 삭제하기
             clearData();
             PrintQuit();
             break;
@@ -1362,7 +1376,7 @@ void Minesweeper::StartGame_Hard()
         if (input == 67 || input == 99) { // c키나 C키를 받을 경우 되돌아가기
             isLose = false;
             isWin = false;
-            /*deleteMem();*/ // 동적할당한 메모리 삭제하기
+            deleteMem(); // 동적할당한 메모리 삭제하기
             clearData();
             PrintQuit();
             break;
@@ -1544,13 +1558,14 @@ void Minesweeper::Lose()
     isLose = true;
 }
 
-//void Minesweeper::deleteMem()
-//{
-//    for (int i = 0; i < COL + 2; i++) {
-//        delete table[i];
-//    }
-//    delete table;
-//}
+void Minesweeper::deleteMem()
+{
+    for (int i = 0; i < COL + 2; i++) {
+        delete table[i];
+    }
+    delete table;
+    table = nullptr;
+}
 
 void Minesweeper::saveData(int _k, int _i, int _j)
 {   
