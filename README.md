@@ -25,14 +25,14 @@ https://user-images.githubusercontent.com/76798309/121817648-9d027000-ccbd-11eb-
   
   
 ## 주요 소스코드
+### 게임 저장 기능 (게임 중 s키 입력 시)
 ```
-        if (input == 83 || input == 115) { // s나 S키를 받을 경우 게임 저장하기
-            // 게임을 저장하는 함수
+        if (input == 83 || input == 115) { 
 
-            ofstream clear("data.txt");    // s를 누를 때마다 data 파일 비우기
+            ofstream clear("data.txt");    
             clear.close();
-
-            ofstream save("data.txt");  // 테이블 정보 저장하기
+            
+            ofstream save("data.txt");  
             for (int i = 1; i <= COL; i++) {
                 for (int j = 1; j <= ROW; j++) {
                     save << table[i][j].val << " ";
@@ -41,17 +41,17 @@ https://user-images.githubusercontent.com/76798309/121817648-9d027000-ccbd-11eb-
             }
             save.close();
 
-            fstream fout("data.txt", ios::out | ios::app); // 쓰기모드로 파일 열기
-            fstream fin("replay.txt", ios::in); // 읽기 모드로 파일 열기
+            fstream fout("data.txt", ios::out | ios::app); 
+            fstream fin("replay.txt", ios::in); 
             int c;
-            while ((c = fin.get()) != EOF) { // REPLAY 파일 끝까지 문자 읽기
-                fout.put(c); // 읽은 문자 기록
+            while ((c = fin.get()) != EOF) { 
+                fout.put(c); 
             }
             fin.close();
             fout.close();
 
             PrintSave();
 
-            break; // save를 한 후에 메뉴로 빠져나오기
+            break; 
         }
 ```
