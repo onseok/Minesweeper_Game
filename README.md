@@ -64,4 +64,6 @@ https://user-images.githubusercontent.com/76798309/121817648-9d027000-ccbd-11eb-
 #### 해결 방안
 - gotoxy() 함수를 사용해 출력 좌표를 고정시킨 뒤 같은 내용을 반복 출력
 - 더블 버퍼링 사용 (윈도우 API 함수 사용 없이)
-- 관련링크 : https://codevang.tistory.com/39
+- 관련링크 ↓
+- https://codevang.tistory.com/39
+- https://doo9713.tistory.com/10
