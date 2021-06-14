@@ -38,7 +38,7 @@ public:
 	Minesweeper();
 	~Minesweeper();
 	int start();
-	void DrawReadyGame();
+	void DrawReadyGame(int para);
 	void DrawStartGame_Load();
 	void DrawStartGame_Easy();
 	void DrawStartGame_Standard();
