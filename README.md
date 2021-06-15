@@ -2,7 +2,7 @@
 
 201710321 김원석 개인 프로젝트
 
-https://user-images.githubusercontent.com/76798309/122035962-fda0c280-ce0d-11eb-869f-d661d6d19b95.mp4
+![github_minesweeper](https://user-images.githubusercontent.com/76798309/122036072-1c9f5480-ce0e-11eb-886b-cb31d210e5f6.gif)
 
 
 ## 구현한 기능
