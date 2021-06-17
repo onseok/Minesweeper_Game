@@ -2,13 +2,11 @@
 
 201710321 김원석 개인 프로젝트
 
-<<<<<<< HEAD
-## 
-https://user-images.githubusercontent.com/76798309/121817648-9d027000-ccbd-11eb-95ad-b0c213c1bbb0.mp4
-=======
+## Main Menu 
 ![github_minesweeper](https://user-images.githubusercontent.com/76798309/122036072-1c9f5480-ce0e-11eb-886b-cb31d210e5f6.gif)
 
->>>>>>> 95aa0fc460d5b4572586c152f99a214b52a319f0
+## Selct Map Size
+
 
 ## 구현한 기능
 
