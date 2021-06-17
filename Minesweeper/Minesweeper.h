@@ -34,6 +34,7 @@ private:
 	bool isWin = false;
 	int stage = 0; // 
 	int dump[20][20];
+
 public:
 	Minesweeper();
 	~Minesweeper();
@@ -68,9 +69,9 @@ public:
 	void PrintSave();
 	void PrintQuit();
 	void PrintLoad();
-	void PrintEasy();
-	void PrintStandard();
-	void PrintHard();
+	void PrintEasy(int _x, int _y, bool check);
+	void PrintStandard(int _x, int _y, bool check);
+	void PrintHard(int _x, int _y, bool check);
 
 	void CursorView(char show) {  
 		HANDLE hConsole;

@@ -74,13 +74,13 @@ void Minesweeper::DrawReadyGame(int para) // 방향키를 움직일 때마다 이 함수가 매
 
     switch (para) {
     case 2 :
-        PrintEasy();
+        PrintEasy(4, 25, true);
         break;      
     case 4 :
-        PrintStandard();
+        PrintStandard(4, 25, true);
         break;
     case 6 :
-        PrintHard();
+        PrintHard(4, 25, true);
         break;
     }
 
@@ -210,62 +210,36 @@ void Minesweeper::DrawStartGame_Easy()
     system("cls");
 
     gotoxy(1, 1);
-    /*cout << "201710321 김원석";*/
     kws::printName();
 
     if (isLose && !isWin) {
         CursorView(false);
 
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "            게 임 오 버            ";
-        gotoxy(30, 14);
-        cout << "===================================";
-
-        //gotoxy(30, 10);
-        //cout << "==================================="; gotoxy(30, 11);
-        //cout << " _      _____  _____  _____   _ "; gotoxy(30, 12);
-        //cout << "| |    |  _  |/  ___||  ___| | |"; gotoxy(30, 13);
-        //cout << "| |    | | | |\\ `--. | |__   | |"; gotoxy(30, 14);
-        //cout << "| |    | | | | `--. \\|  __|  | |"; gotoxy(30, 15);
-        //cout << "| |____\\ \\_/ //\\__/ /| |___  |_|"; gotoxy(30, 16);
-        //cout << "\\_____/ \\___/ \\____/ \\____/  (_)"; gotoxy(30, 17);
-        //cout << "===================================";
-
-
+        gotoxy(18, 28);
+        cout << " _      _____  _____  _____   _ "; gotoxy(18, 29);
+        cout << "| |    |  _  |/  ___||  ___| | |"; gotoxy(18, 30);
+        cout << "| |    | | | |\\ `--. | |__   | |"; gotoxy(18, 31);
+        cout << "| |    | | | | `--. \\|  __|  | |"; gotoxy(18, 32);
+        cout << "| |____\\ \\_/ //\\__/ /| |___  |_|"; gotoxy(18, 33);
+        cout << "\\_____/ \\___/ \\____/ \\____/  (_)";
 
         drawTable(); // 게임 오버된 상태 보여주기
 
         Sleep(3000); // 3초 후에 리플레이 시작
 
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "         ▶  리 플 레 이           ";
-        gotoxy(30, 14);
-        cout << "===================================";
+        system("cls"); // lose 보여주고 지우기
 
-        //gotoxy(28, 10);
-        //cout << "###############################################"; gotoxy(28, 11);
-        //cout << "#                                             #"; gotoxy(28, 12);
-        //cout << "#                                             #"; gotoxy(28, 13);
-        //cout << "#            ▶   ▶   ▶   ▶   ▶           #"; gotoxy(28, 14);
-        //cout << "#                                             #"; gotoxy(28, 15);
-        //cout << "# ______  _____ ______  _       ___  __   __ㅇ#"; gotoxy(28, 16);
-        //cout << "# | ___ \|  ___|| ___ \| |     / _ \ \ \ / /  #"; gotoxy(28, 17);
-        //cout << "# | |_/ /| |__  | |_/ /| |    / /_\ \ \ V /   #"; gotoxy(28, 18);
-        //cout << "# |    / |  __| |  __/ | |    |  _  |  \ /    #"; gotoxy(28, 19);
-        //cout << "# | |\ \ | |___ | |    | |____| | | |  | |    #"; gotoxy(28, 20);
-        //cout << "# \_| \_|\____/ \_|    \_____/\_| |_/  \_/    #"; gotoxy(28, 21);
-        //cout << "#                                             #"; gotoxy(28, 22);
-        //cout << "#                                             #"; gotoxy(28, 23);
-        //cout << "#                                             #"; gotoxy(28, 24);
-        //cout << "#       메뉴로 돌아가려면 C키를 누르세요      #"; gotoxy(28, 25);
-        //cout << "#                                             #"; gotoxy(28, 26);
-        //cout << "###############################################";
-
-
+        int _x = 14;
+        int _y = 26;
+        gotoxy(_x, _y);
+        cout << "           ▶   ▶   ▶   ▶   ▶              "; gotoxy(_x + 1, _y + 1);
+        cout << "                                               "; gotoxy(_x + 1, _y + 2);
+        cout << "______  _____ ______  _       ___  __   __ㅇ   "; gotoxy(_x + 1, _y + 3);
+        cout << "| ___ \\|  ___|| ___ \\| |     / _ \\ \\ \\ / /"; gotoxy(_x + 1, _y + 4);
+        cout << "| |_/ /| |__  | |_/ /| |    / /_\\ \\ \\ v /   "; gotoxy(_x + 1, _y + 5);
+        cout << "|    / |  __| |  __/ | |    |  _  |  \\ /      "; gotoxy(_x + 1, _y + 6);
+        cout << "| |\\ \\ | |___ | |    | |____| | | |  | |     "; gotoxy(_x + 1, _y + 7);
+        cout << "\\_| \\_|\\____/ \\_|    \\_____/\\_| |_/  \\_/"; gotoxy(_x + 1, _y + 8);
 
         for (int i = 1; i <= COL; i++) {
             for (int j = 1; j <= ROW; j++) {
@@ -310,75 +284,48 @@ void Minesweeper::DrawStartGame_Easy()
 
             drawTable();
         }
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "         ▷  리 플 레 이           ";
-        gotoxy(30, 14);
-        cout << "===================================";
-        gotoxy(30, 16);
-        cout << "  메뉴로 돌아가려면 C키를 누르세요";
 
-        //gotoxy(28, 10);
-        //cout << "###############################################"; gotoxy(28, 11);
-        //cout << "#                                             #"; gotoxy(28, 12);
-        //cout << "#                                             #"; gotoxy(28, 13);
-        //cout << "#            ▷   ▷   ▷   ▷   ▷           #"; gotoxy(28, 14);
-        //cout << "#                                             #"; gotoxy(28, 15);
-        //cout << "# ______  _____ ______  _       ___  __   __ㅇ#"; gotoxy(28, 16);
-        //cout << "# | ___ \|  ___|| ___ \| |     / _ \ \ \ / /  #"; gotoxy(28, 17);
-        //cout << "# | |_/ /| |__  | |_/ /| |    / /_\ \ \ V /   #"; gotoxy(28, 18);
-        //cout << "# |    / |  __| |  __/ | |    |  _  |  \ /    #"; gotoxy(28, 19);
-        //cout << "# | |\ \ | |___ | |    | |____| | | |  | |    #"; gotoxy(28, 20);
-        //cout << "# \_| \_|\____/ \_|    \_____/\_| |_/  \_/    #"; gotoxy(28, 21);
-        //cout << "#                                             #"; gotoxy(28, 22);
-        //cout << "#                                             #"; gotoxy(28, 23);
-        //cout << "#                                             #"; gotoxy(28, 24);
-        //cout << "#       메뉴로 돌아가려면 C키를 누르세요      #"; gotoxy(28, 25);
-        //cout << "#                                             #"; gotoxy(28, 26);
-        //cout << "###############################################";
+        gotoxy(_x, _y);
+        cout << "           ▷   ▷   ▷   ▷   ▷              "; gotoxy(_x + 1, _y + 1);
+        cout << "                                               "; gotoxy(_x + 1, _y + 2);
+        cout << "______  _____ ______  _       ___  __   __ㅇ   "; gotoxy(_x + 1, _y + 3);
+        cout << "| ___ \\|  ___|| ___ \\| |     / _ \\ \\ \\ / /"; gotoxy(_x + 1, _y + 4);
+        cout << "| |_/ /| |__  | |_/ /| |    / /_\\ \\ \\ v /   "; gotoxy(_x + 1, _y + 5);
+        cout << "|    / |  __| |  __/ | |    |  _  |  \\ /      "; gotoxy(_x + 1, _y + 6);
+        cout << "| |\\ \\ | |___ | |    | |____| | | |  | |     "; gotoxy(_x + 1, _y + 7);
+        cout << "\\_| \\_|\\____/ \\_|    \\_____/\\_| |_/  \\_/"; gotoxy(_x + 1, _y + 8);
+        cout << "                                               "; gotoxy(_x + 1, _y + 9);
+        cout << "                                               "; gotoxy(_x + 1, _y + 10);
+        cout << "      메뉴로 돌아가려면 c키를 누르세요         "; gotoxy(_x + 1, _y + 11);
 
         system("pause>nul");
     }
     else if (!isLose && isWin) {
         CursorView(false);
 
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "            게 임 승 리             ";
-        gotoxy(30, 14);
-        cout << "===================================";
+        gotoxy(18, 28);
+        cout << " _    _   _____   _   _   _ "; gotoxy(18, 29);
+        cout << "| |  | | |_   _| | \\ | | | |"; gotoxy(18, 30);
+        cout << "| |  | |   | |   |  \\| | | |"; gotoxy(18, 31);
+        cout << "| |/\\| |   | |   | . ` | | |"; gotoxy(18, 32);
+        cout << "\\  /\\  /  _| |_  | |\\  | |_|"; gotoxy(18, 33);
+        cout << " \\/  \\/   \\___/  \\_| \\_/ (_)";
 
         drawTable(); // 게임 승리된 상태 보여주기
 
         Sleep(3000); // 3초 후에 리플레이 시작
 
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "         ▶  리 플 레 이           ";
-        gotoxy(30, 14);
-        cout << "===================================";
-
-        //gotoxy(28, 10);
-        //cout << "###############################################"; gotoxy(28, 11);
-        //cout << "#                                             #"; gotoxy(28, 12);
-        //cout << "#                                             #"; gotoxy(28, 13);
-        //cout << "#            ▶   ▶   ▶   ▶   ▶           #"; gotoxy(28, 14);
-        //cout << "#                                             #"; gotoxy(28, 15);
-        //cout << "# ______  _____ ______  _       ___  __   __ㅇ#"; gotoxy(28, 16);
-        //cout << "# | ___ \|  ___|| ___ \| |     / _ \ \ \ / /  #"; gotoxy(28, 17);
-        //cout << "# | |_/ /| |__  | |_/ /| |    / /_\ \ \ V /   #"; gotoxy(28, 18);
-        //cout << "# |    / |  __| |  __/ | |    |  _  |  \ /    #"; gotoxy(28, 19);
-        //cout << "# | |\ \ | |___ | |    | |____| | | |  | |    #"; gotoxy(28, 20);
-        //cout << "# \_| \_|\____/ \_|    \_____/\_| |_/  \_/    #"; gotoxy(28, 21);
-        //cout << "#                                             #"; gotoxy(28, 22);
-        //cout << "#                                             #"; gotoxy(28, 23);
-        //cout << "#                                             #"; gotoxy(28, 24);
-        //cout << "#       메뉴로 돌아가려면 C키를 누르세요      #"; gotoxy(28, 25);
-        //cout << "#                                             #"; gotoxy(28, 26);
-        //cout << "###############################################";
+        int _x = 14;
+        int _y = 26;
+        gotoxy(_x, _y);
+        cout << "           ▶   ▶   ▶   ▶   ▶              "; gotoxy(_x + 1, _y + 1);
+        cout << "                                               "; gotoxy(_x + 1, _y + 2);
+        cout << "______  _____ ______  _       ___  __   __ㅇ   "; gotoxy(_x + 1, _y + 3);
+        cout << "| ___ \\|  ___|| ___ \\| |     / _ \\ \\ \\ / /"; gotoxy(_x + 1, _y + 4);
+        cout << "| |_/ /| |__  | |_/ /| |    / /_\\ \\ \\ v /   "; gotoxy(_x + 1, _y + 5);
+        cout << "|    / |  __| |  __/ | |    |  _  |  \\ /      "; gotoxy(_x + 1, _y + 6);
+        cout << "| |\\ \\ | |___ | |    | |____| | | |  | |     "; gotoxy(_x + 1, _y + 7);
+        cout << "\\_| \\_|\\____/ \\_|    \\_____/\\_| |_/  \\_/"; gotoxy(_x + 1, _y + 8);
 
 
         for (int i = 1; i <= COL; i++) {
@@ -424,57 +371,79 @@ void Minesweeper::DrawStartGame_Easy()
 
             drawTable();
         }
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "         ▷  리 플 레 이           ";
-        gotoxy(30, 14);
-        cout << "===================================";
-        gotoxy(30, 16);
-        cout << "  메뉴로 돌아가려면 C키를 누르세요";
 
-        //gotoxy(28, 10);
-        //cout << "###############################################"; gotoxy(28, 11);
-        //cout << "#                                             #"; gotoxy(28, 12);
-        //cout << "#                                             #"; gotoxy(28, 13);
-        //cout << "#            ▷   ▷   ▷   ▷   ▷           #"; gotoxy(28, 14);
-        //cout << "#                                             #"; gotoxy(28, 15);
-        //cout << "# ______  _____ ______  _       ___  __   __ㅇ#"; gotoxy(28, 16);
-        //cout << "# | ___ \|  ___|| ___ \| |     / _ \ \ \ / /  #"; gotoxy(28, 17);
-        //cout << "# | |_/ /| |__  | |_/ /| |    / /_\ \ \ V /   #"; gotoxy(28, 18);
-        //cout << "# |    / |  __| |  __/ | |    |  _  |  \ /    #"; gotoxy(28, 19);
-        //cout << "# | |\ \ | |___ | |    | |____| | | |  | |    #"; gotoxy(28, 20);
-        //cout << "# \_| \_|\____/ \_|    \_____/\_| |_/  \_/    #"; gotoxy(28, 21);
-        //cout << "#                                             #"; gotoxy(28, 22);
-        //cout << "#                                             #"; gotoxy(28, 23);
-        //cout << "#                                             #"; gotoxy(28, 24);
-        //cout << "#       메뉴로 돌아가려면 C키를 누르세요      #"; gotoxy(28, 25);
-        //cout << "#                                             #"; gotoxy(28, 26);
-        //cout << "###############################################";
+        gotoxy(_x, _y);
+        cout << "           ▷   ▷   ▷   ▷   ▷              "; gotoxy(_x + 1, _y + 1);
+        cout << "                                               "; gotoxy(_x + 1, _y + 2);
+        cout << "______  _____ ______  _       ___  __   __ㅇ   "; gotoxy(_x + 1, _y + 3);
+        cout << "| ___ \\|  ___|| ___ \\| |     / _ \\ \\ \\ / /"; gotoxy(_x + 1, _y + 4);
+        cout << "| |_/ /| |__  | |_/ /| |    / /_\\ \\ \\ v /   "; gotoxy(_x + 1, _y + 5);
+        cout << "|    / |  __| |  __/ | |    |  _  |  \\ /      "; gotoxy(_x + 1, _y + 6);
+        cout << "| |\\ \\ | |___ | |    | |____| | | |  | |     "; gotoxy(_x + 1, _y + 7);
+        cout << "\\_| \\_|\\____/ \\_|    \\_____/\\_| |_/  \\_/"; gotoxy(_x + 1, _y + 8);
+        cout << "                                               "; gotoxy(_x + 1, _y + 9);
+        cout << "                                               "; gotoxy(_x + 1, _y + 10);
+        cout << "      메뉴로 돌아가려면 c키를 누르세요         "; gotoxy(_x + 1, _y + 11);
 
         system("pause>nul");
     }
     else {
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 11);
-        cout << "            난이도 (하)            ";
-        gotoxy(30, 13);
-        cout << "              " << ROW << " X " << COL;
-        gotoxy(30, 15);
-        cout << "         폭탄 갯수 => " << BOMBS_CNT << "개";
-        gotoxy(30, 16);
-        cout << "===================================";
-        gotoxy(30, 18);
-        cout << " 스페이스 바(SPACE) : 블록 선택하기";
-        gotoxy(30, 20);
-        cout << "   f 키 혹은 F 키   : 깃발 표시하기";
-        gotoxy(30, 22);
-        cout << "   s 키 혹은 S 키   : 게임 저장하기";
-        gotoxy(30, 24);
-        cout << "   c 키 혹은 C 키   : 뒤로 돌아가기";
+        //gotoxy(30, 10);
+        //cout << "===================================";
+        //gotoxy(30, 11);
+        //cout << "            난이도 (하)            ";
+        //gotoxy(30, 13);
+        //cout << "              " << ROW << " X " << COL;
+        //gotoxy(30, 15);
+        //cout << "         폭탄 갯수 => " << BOMBS_CNT << "개";
+        //gotoxy(30, 16);
+        //cout << "===================================";
+        //gotoxy(30, 18);
+        //cout << " 스페이스 바(SPACE) : 블록 선택하기";
+        //gotoxy(30, 20);
+        //cout << "   f 키 혹은 F 키   : 깃발 표시하기";
+        //gotoxy(30, 22);
+        //cout << "   s 키 혹은 S 키   : 게임 저장하기";
+        //gotoxy(30, 24);
+        //cout << "   c 키 혹은 C 키   : 뒤로 돌아가기";
+
+        PrintEasy(3, 10, false);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);  // 글씨색상 변경 : 어두운 하늘
+        gotoxy(5, 19);
+        cout << " 난이도 (하)";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 글씨색상 변경 : 흰색
 
         drawTable();
+
+        gotoxy(16, 26);
+        cout << " _______________  "; gotoxy(16, 27);
+        cout << "|__ Space Bar __| " << "   블록 선택하기"; gotoxy(16, 29);
+        cout << "     _____        "; gotoxy(16, 30);
+        cout << "    |_ F _|       " << "   깃발 표시하기"; gotoxy(16, 32);
+        cout << "     _____        "; gotoxy(16, 33);
+        cout << "    |_ S _|       " << "   게임 저장하기"; gotoxy(16, 35);
+        cout << "     _____        "; gotoxy(16, 36);
+        cout << "    |_ C _|       " << "   뒤로 돌아가기";
+
+        gotoxy(36, 29);
+        cout << "          ______        "; gotoxy(36, 30);
+        cout << "         |_ ↑ _|       ";
+
+        gotoxy(36, 31);
+        cout << " ______   ______   ______ "; gotoxy(36, 32);
+        cout << "|_ ← _| |_ ↓ _| |_ → _|"; gotoxy(36, 34);
+        cout << "       커서 이동하기      ";
+
+        gotoxy(40, 12);
+        cout << "지 뢰  개 수"; gotoxy(40, 14);
+        cout << "  ********  "; gotoxy(40, 15);
+        cout << "  *      *  "; gotoxy(40, 16);
+        if(BOMBS_CNT < 10) {
+            cout << "  *   " << BOMBS_CNT << "  *"; gotoxy(40, 17);
+        }
+        cout << "  *  " << BOMBS_CNT << "  *"; gotoxy(40, 17);
+        cout << "  *      *  "; gotoxy(40, 18);
+        cout << "  ********  ";
     }
 }
 
@@ -483,30 +452,36 @@ void Minesweeper::DrawStartGame_Standard()
     system("cls");
 
     gotoxy(1, 1);
-    /*cout << "201710321 김원석";*/
     kws::printName();
 
     if (isLose && !isWin) {
         CursorView(false);
 
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "            게 임 오 버            ";
-        gotoxy(30, 14);
-        cout << "===================================";
-
+        gotoxy(18, 28);
+        cout << " _      _____  _____  _____   _ "; gotoxy(18, 29);
+        cout << "| |    |  _  |/  ___||  ___| | |"; gotoxy(18, 30);
+        cout << "| |    | | | |\\ `--. | |__   | |"; gotoxy(18, 31);
+        cout << "| |    | | | | `--. \\|  __|  | |"; gotoxy(18, 32);
+        cout << "| |____\\ \\_/ //\\__/ /| |___  |_|"; gotoxy(18, 33);
+        cout << "\\_____/ \\___/ \\____/ \\____/  (_)";
 
         drawTable(); // 게임 오버된 상태 보여주기
 
         Sleep(3000); // 3초 후에 리플레이 시작
 
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "         ▶  리 플 레 이           ";
-        gotoxy(30, 14);
-        cout << "===================================";
+        system("cls"); // lose 보여주고 지우기
+
+        int _x = 14;
+        int _y = 26;
+        gotoxy(_x, _y);
+        cout << "           ▶   ▶   ▶   ▶   ▶              "; gotoxy(_x + 1, _y + 1);
+        cout << "                                               "; gotoxy(_x + 1, _y + 2);
+        cout << "______  _____ ______  _       ___  __   __ㅇ   "; gotoxy(_x + 1, _y + 3);
+        cout << "| ___ \\|  ___|| ___ \\| |     / _ \\ \\ \\ / /"; gotoxy(_x + 1, _y + 4);
+        cout << "| |_/ /| |__  | |_/ /| |    / /_\\ \\ \\ v /   "; gotoxy(_x + 1, _y + 5);
+        cout << "|    / |  __| |  __/ | |    |  _  |  \\ /      "; gotoxy(_x + 1, _y + 6);
+        cout << "| |\\ \\ | |___ | |    | |____| | | |  | |     "; gotoxy(_x + 1, _y + 7);
+        cout << "\\_| \\_|\\____/ \\_|    \\_____/\\_| |_/  \\_/"; gotoxy(_x + 1, _y + 8);
 
 
         for (int i = 1; i <= COL; i++) {
@@ -552,39 +527,47 @@ void Minesweeper::DrawStartGame_Standard()
 
             drawTable();
         }
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "         ▷  리 플 레 이           ";
-        gotoxy(30, 14);
-        cout << "===================================";
-        gotoxy(30, 16);
-        cout << "  메뉴로 돌아가려면 C키를 누르세요";
+        gotoxy(_x, _y);
+        cout << "           ▷   ▷   ▷   ▷   ▷              "; gotoxy(_x + 1, _y + 1);
+        cout << "                                               "; gotoxy(_x + 1, _y + 2);
+        cout << "______  _____ ______  _       ___  __   __ㅇ   "; gotoxy(_x + 1, _y + 3);
+        cout << "| ___ \\|  ___|| ___ \\| |     / _ \\ \\ \\ / /"; gotoxy(_x + 1, _y + 4);
+        cout << "| |_/ /| |__  | |_/ /| |    / /_\\ \\ \\ v /   "; gotoxy(_x + 1, _y + 5);
+        cout << "|    / |  __| |  __/ | |    |  _  |  \\ /      "; gotoxy(_x + 1, _y + 6);
+        cout << "| |\\ \\ | |___ | |    | |____| | | |  | |     "; gotoxy(_x + 1, _y + 7);
+        cout << "\\_| \\_|\\____/ \\_|    \\_____/\\_| |_/  \\_/"; gotoxy(_x + 1, _y + 8);
+        cout << "                                               "; gotoxy(_x + 1, _y + 9);
+        cout << "                                               "; gotoxy(_x + 1, _y + 10);
+        cout << "      메뉴로 돌아가려면 c키를 누르세요         "; gotoxy(_x + 1, _y + 11);
 
         system("pause>nul");
     }
     else if (!isLose && isWin) {
         CursorView(false);
 
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "            게 임 승 리             ";
-        gotoxy(30, 14);
-        cout << "===================================";
-        gotoxy(30, 20);
-        cout << "  c 키 혹은 C 키  : 메뉴로 돌아가기";
+        gotoxy(18, 28);
+        cout << " _    _   _____   _   _   _ "; gotoxy(18, 29);
+        cout << "| |  | | |_   _| | \\ | | | |"; gotoxy(18, 30);
+        cout << "| |  | |   | |   |  \\| | | |"; gotoxy(18, 31);
+        cout << "| |/\\| |   | |   | . ` | | |"; gotoxy(18, 32);
+        cout << "\\  /\\  /  _| |_  | |\\  | |_|"; gotoxy(18, 33);
+        cout << " \\/  \\/   \\___/  \\_| \\_/ (_)";
 
         drawTable(); // 게임 승리된 상태 보여주기
 
         Sleep(3000); // 3초 후에 리플레이 시작
 
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "         ▶  리 플 레 이           ";
-        gotoxy(30, 14);
-        cout << "===================================";
+        int _x = 14;
+        int _y = 26;
+        gotoxy(_x, _y);
+        cout << "           ▶   ▶   ▶   ▶   ▶              "; gotoxy(_x + 1, _y + 1);
+        cout << "                                               "; gotoxy(_x + 1, _y + 2);
+        cout << "______  _____ ______  _       ___  __   __ㅇ   "; gotoxy(_x + 1, _y + 3);
+        cout << "| ___ \\|  ___|| ___ \\| |     / _ \\ \\ \\ / /"; gotoxy(_x + 1, _y + 4);
+        cout << "| |_/ /| |__  | |_/ /| |    / /_\\ \\ \\ v /   "; gotoxy(_x + 1, _y + 5);
+        cout << "|    / |  __| |  __/ | |    |  _  |  \\ /      "; gotoxy(_x + 1, _y + 6);
+        cout << "| |\\ \\ | |___ | |    | |____| | | |  | |     "; gotoxy(_x + 1, _y + 7);
+        cout << "\\_| \\_|\\____/ \\_|    \\_____/\\_| |_/  \\_/"; gotoxy(_x + 1, _y + 8);
 
 
         for (int i = 1; i <= COL; i++) {
@@ -630,42 +613,84 @@ void Minesweeper::DrawStartGame_Standard()
 
             drawTable();
         }
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "         ▷  리 플 레 이           ";
-        gotoxy(30, 14);
-        cout << "===================================";
-        gotoxy(30, 16);
-        cout << "  메뉴로 돌아가려면 C키를 누르세요";
+
+        gotoxy(_x, _y);
+        cout << "           ▷   ▷   ▷   ▷   ▷              "; gotoxy(_x + 1, _y + 1);
+        cout << "                                               "; gotoxy(_x + 1, _y + 2);
+        cout << "______  _____ ______  _       ___  __   __ㅇ   "; gotoxy(_x + 1, _y + 3);
+        cout << "| ___ \\|  ___|| ___ \\| |     / _ \\ \\ \\ / /"; gotoxy(_x + 1, _y + 4);
+        cout << "| |_/ /| |__  | |_/ /| |    / /_\\ \\ \\ v /   "; gotoxy(_x + 1, _y + 5);
+        cout << "|    / |  __| |  __/ | |    |  _  |  \\ /      "; gotoxy(_x + 1, _y + 6);
+        cout << "| |\\ \\ | |___ | |    | |____| | | |  | |     "; gotoxy(_x + 1, _y + 7);
+        cout << "\\_| \\_|\\____/ \\_|    \\_____/\\_| |_/  \\_/"; gotoxy(_x + 1, _y + 8);
+        cout << "                                               "; gotoxy(_x + 1, _y + 9);
+        cout << "                                               "; gotoxy(_x + 1, _y + 10);
+        cout << "      메뉴로 돌아가려면 c키를 누르세요         "; gotoxy(_x + 1, _y + 11);
 
         system("pause>nul");
     }
     else {
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 11);
-        cout << "            난이도 (중)            ";
-        gotoxy(30, 13);
-        cout << "              " << ROW << " X " << COL;
-        gotoxy(30, 15);
-        cout << "         폭탄 갯수 => " << BOMBS_CNT << "개";
-        gotoxy(30, 16);
-        cout << "===================================";
-        gotoxy(30, 18);
-        cout << " 스페이스 바(SPACE) : 블록 선택하기";
-        gotoxy(30, 20);
-        cout << "   f 키 혹은 F 키   : 깃발 표시하기";
-        gotoxy(30, 22);
-        cout << "   s 키 혹은 S 키   : 게임 저장하기";
-        gotoxy(30, 24);
-        cout << "   c 키 혹은 C 키   : 뒤로 돌아가기";
+        //gotoxy(30, 10);
+        //cout << "===================================";
+        //gotoxy(30, 11);
+        //cout << "            난이도 (중)            ";
+        //gotoxy(30, 13);
+        //cout << "              " << ROW << " X " << COL;
+        //gotoxy(30, 15);
+        //cout << "         폭탄 갯수 => " << BOMBS_CNT << "개";
+        //gotoxy(30, 16);
+        //cout << "===================================";
+        //gotoxy(30, 18);
+        //cout << " 스페이스 바(SPACE) : 블록 선택하기";
+        //gotoxy(30, 20);
+        //cout << "   f 키 혹은 F 키   : 깃발 표시하기";
+        //gotoxy(30, 22);
+        //cout << "   s 키 혹은 S 키   : 게임 저장하기";
+        //gotoxy(30, 24);
+        //cout << "   c 키 혹은 C 키   : 뒤로 돌아가기";
+
+        PrintStandard(3, 10, false);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);  // 글씨색상 변경 : 어두운 노랑
+        gotoxy(5, 19);
+        cout << " 난이도 (중)";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 글씨색상 변경 : 흰색
 
         drawTable();
+
+        gotoxy(16, 26);
+        cout << " _______________  "; gotoxy(16, 27);
+        cout << "|__ Space Bar __| " << "   블록 선택하기"; gotoxy(16, 29);
+        cout << "     _____        "; gotoxy(16, 30);
+        cout << "    |_ F _|       " << "   깃발 표시하기"; gotoxy(16, 32);
+        cout << "     _____        "; gotoxy(16, 33);
+        cout << "    |_ S _|       " << "   게임 저장하기"; gotoxy(16, 35);
+        cout << "     _____        "; gotoxy(16, 36);
+        cout << "    |_ C _|       " << "   뒤로 돌아가기";
+
+        gotoxy(36, 29);
+        cout << "          ______        "; gotoxy(36, 30);
+        cout << "         |_ ↑ _|       ";
+
+        gotoxy(36, 31);
+        cout << " ______   ______   ______ "; gotoxy(36, 32);
+        cout << "|_ ← _| |_ ↓ _| |_ → _|"; gotoxy(36, 34);
+        cout << "       커서 이동하기      ";
+
+        gotoxy(40, 12);
+        cout << "지 뢰  개 수"; gotoxy(40, 14);
+        cout << "  ********  "; gotoxy(40, 15);
+        cout << "  *      *  "; gotoxy(40, 16);
+        if(BOMBS_CNT < 10) {
+            cout << "  *   " << BOMBS_CNT << "  *"; gotoxy(40, 17);
+        }
+        cout << "  *  " << BOMBS_CNT << "  *"; gotoxy(40, 17);
+        cout << "  *      *  "; gotoxy(40, 18);
+        cout << "  ********  ";
     }
-
-
 }
+
+
+
 
 void Minesweeper::DrawStartGame_Hard()
 {
@@ -678,24 +703,31 @@ void Minesweeper::DrawStartGame_Hard()
     if (isLose && !isWin) {
         CursorView(false);
 
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "            게 임 오 버            ";
-        gotoxy(30, 14);
-        cout << "===================================";
-
+        gotoxy(18, 28);
+        cout << " _      _____  _____  _____   _ "; gotoxy(18, 29);
+        cout << "| |    |  _  |/  ___||  ___| | |"; gotoxy(18, 30);
+        cout << "| |    | | | |\\ `--. | |__   | |"; gotoxy(18, 31);
+        cout << "| |    | | | | `--. \\|  __|  | |"; gotoxy(18, 32);
+        cout << "| |____\\ \\_/ //\\__/ /| |___  |_|"; gotoxy(18, 33);
+        cout << "\\_____/ \\___/ \\____/ \\____/  (_)";
 
         drawTable(); // 게임 오버된 상태 보여주기
 
         Sleep(3000); // 3초 후에 리플레이 시작
 
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "         ▶  리 플 레 이           ";
-        gotoxy(30, 14);
-        cout << "===================================";
+        system("cls"); // lose 보여주고 지우기
+
+        int _x = 14;
+        int _y = 26;
+        gotoxy(_x, _y);
+        cout << "           ▶   ▶   ▶   ▶   ▶              "; gotoxy(_x + 1, _y + 1);
+        cout << "                                               "; gotoxy(_x + 1, _y + 2);
+        cout << "______  _____ ______  _       ___  __   __ㅇ   "; gotoxy(_x + 1, _y + 3);
+        cout << "| ___ \\|  ___|| ___ \\| |     / _ \\ \\ \\ / /"; gotoxy(_x + 1, _y + 4);
+        cout << "| |_/ /| |__  | |_/ /| |    / /_\\ \\ \\ v /   "; gotoxy(_x + 1, _y + 5);
+        cout << "|    / |  __| |  __/ | |    |  _  |  \\ /      "; gotoxy(_x + 1, _y + 6);
+        cout << "| |\\ \\ | |___ | |    | |____| | | |  | |     "; gotoxy(_x + 1, _y + 7);
+        cout << "\\_| \\_|\\____/ \\_|    \\_____/\\_| |_/  \\_/"; gotoxy(_x + 1, _y + 8);
 
 
         for (int i = 1; i <= COL; i++) {
@@ -741,39 +773,48 @@ void Minesweeper::DrawStartGame_Hard()
 
             drawTable();
         }
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "         ▷  리 플 레 이           ";
-        gotoxy(30, 14);
-        cout << "===================================";
-        gotoxy(30, 16);
-        cout << "  메뉴로 돌아가려면 C키를 누르세요";
+
+        gotoxy(_x, _y);
+        cout << "           ▷   ▷   ▷   ▷   ▷              "; gotoxy(_x + 1, _y + 1);
+        cout << "                                               "; gotoxy(_x + 1, _y + 2);
+        cout << "______  _____ ______  _       ___  __   __ㅇ   "; gotoxy(_x + 1, _y + 3);
+        cout << "| ___ \\|  ___|| ___ \\| |     / _ \\ \\ \\ / /"; gotoxy(_x + 1, _y + 4);
+        cout << "| |_/ /| |__  | |_/ /| |    / /_\\ \\ \\ v /   "; gotoxy(_x + 1, _y + 5);
+        cout << "|    / |  __| |  __/ | |    |  _  |  \\ /      "; gotoxy(_x + 1, _y + 6);
+        cout << "| |\\ \\ | |___ | |    | |____| | | |  | |     "; gotoxy(_x + 1, _y + 7);
+        cout << "\\_| \\_|\\____/ \\_|    \\_____/\\_| |_/  \\_/"; gotoxy(_x + 1, _y + 8);
+        cout << "                                               "; gotoxy(_x + 1, _y + 9);
+        cout << "                                               "; gotoxy(_x + 1, _y + 10);
+        cout << "      메뉴로 돌아가려면 c키를 누르세요         "; gotoxy(_x + 1, _y + 11);
 
         system("pause>nul");
     }
     else if (!isLose && isWin) {
         CursorView(false);
 
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "            게 임 승 리             ";
-        gotoxy(30, 14);
-        cout << "===================================";
-        gotoxy(30, 20);
-        cout << "  c 키 혹은 C 키  : 메뉴로 돌아가기";
+        gotoxy(18, 28);
+        cout << " _    _   _____   _   _   _ "; gotoxy(18, 29);
+        cout << "| |  | | |_   _| | \\ | | | |"; gotoxy(18, 30);
+        cout << "| |  | |   | |   |  \\| | | |"; gotoxy(18, 31);
+        cout << "| |/\\| |   | |   | . ` | | |"; gotoxy(18, 32);
+        cout << "\\  /\\  /  _| |_  | |\\  | |_|"; gotoxy(18, 33);
+        cout << " \\/  \\/   \\___/  \\_| \\_/ (_)";
 
         drawTable(); // 게임 승리된 상태 보여주기
 
         Sleep(3000); // 3초 후에 리플레이 시작
 
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "         ▶  리 플 레 이           ";
-        gotoxy(30, 14);
-        cout << "===================================";
+        int _x = 14;
+        int _y = 26;
+        gotoxy(_x, _y);
+        cout << "           ▶   ▶   ▶   ▶   ▶              "; gotoxy(_x + 1, _y + 1);
+        cout << "                                               "; gotoxy(_x + 1, _y + 2);
+        cout << "______  _____ ______  _       ___  __   __ㅇ   "; gotoxy(_x + 1, _y + 3);
+        cout << "| ___ \\|  ___|| ___ \\| |     / _ \\ \\ \\ / /"; gotoxy(_x + 1, _y + 4);
+        cout << "| |_/ /| |__  | |_/ /| |    / /_\\ \\ \\ v /   "; gotoxy(_x + 1, _y + 5);
+        cout << "|    / |  __| |  __/ | |    |  _  |  \\ /      "; gotoxy(_x + 1, _y + 6);
+        cout << "| |\\ \\ | |___ | |    | |____| | | |  | |     "; gotoxy(_x + 1, _y + 7);
+        cout << "\\_| \\_|\\____/ \\_|    \\_____/\\_| |_/  \\_/"; gotoxy(_x + 1, _y + 8);
 
 
         for (int i = 1; i <= COL; i++) {
@@ -819,80 +860,119 @@ void Minesweeper::DrawStartGame_Hard()
 
             drawTable();
         }
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 12);
-        cout << "         ▷  리 플 레 이           ";
-        gotoxy(30, 14);
-        cout << "===================================";
-        gotoxy(30, 16);
-        cout << "  메뉴로 돌아가려면 C키를 누르세요";
+
+        gotoxy(_x, _y);
+        cout << "           ▷   ▷   ▷   ▷   ▷              "; gotoxy(_x + 1, _y + 1);
+        cout << "                                               "; gotoxy(_x + 1, _y + 2);
+        cout << "______  _____ ______  _       ___  __   __ㅇ   "; gotoxy(_x + 1, _y + 3);
+        cout << "| ___ \\|  ___|| ___ \\| |     / _ \\ \\ \\ / /"; gotoxy(_x + 1, _y + 4);
+        cout << "| |_/ /| |__  | |_/ /| |    / /_\\ \\ \\ v /   "; gotoxy(_x + 1, _y + 5);
+        cout << "|    / |  __| |  __/ | |    |  _  |  \\ /      "; gotoxy(_x + 1, _y + 6);
+        cout << "| |\\ \\ | |___ | |    | |____| | | |  | |     "; gotoxy(_x + 1, _y + 7);
+        cout << "\\_| \\_|\\____/ \\_|    \\_____/\\_| |_/  \\_/"; gotoxy(_x + 1, _y + 8);
+        cout << "                                               "; gotoxy(_x + 1, _y + 9);
+        cout << "                                               "; gotoxy(_x + 1, _y + 10);
+        cout << "      메뉴로 돌아가려면 c키를 누르세요         "; gotoxy(_x + 1, _y + 11);
 
         system("pause>nul");
     }
     else {
-        gotoxy(30, 10);
-        cout << "===================================";
-        gotoxy(30, 11);
-        cout << "            난이도 (상)            ";
-        gotoxy(30, 13);
-        cout << "              " << ROW << " X " << COL;
-        gotoxy(30, 15);
-        cout << "         폭탄 갯수 => " << BOMBS_CNT << "개";
-        gotoxy(30, 16);
-        cout << "===================================";
-        gotoxy(30, 18);
-        cout << " 스페이스 바(SPACE) : 블록 선택하기";
-        gotoxy(30, 20);
-        cout << "   f 키 혹은 F 키   : 깃발 표시하기";
-        gotoxy(30, 22);
-        cout << "   s 키 혹은 S 키   : 게임 저장하기";
-        gotoxy(30, 24);
-        cout << "   c 키 혹은 C 키   : 뒤로 돌아가기";
+        //gotoxy(30, 10);
+        //cout << "===================================";
+        //gotoxy(30, 11);
+        //cout << "            난이도 (상)            ";
+        //gotoxy(30, 13);
+        //cout << "              " << ROW << " X " << COL;
+        //gotoxy(30, 15);
+        //cout << "         폭탄 갯수 => " << BOMBS_CNT << "개";
+        //gotoxy(30, 16);
+        //cout << "===================================";
+        //gotoxy(30, 18);
+        //cout << " 스페이스 바(SPACE) : 블록 선택하기";
+        //gotoxy(30, 20);
+        //cout << "   f 키 혹은 F 키   : 깃발 표시하기";
+        //gotoxy(30, 22);
+        //cout << "   s 키 혹은 S 키   : 게임 저장하기";
+        //gotoxy(30, 24);
+        //cout << "   c 키 혹은 C 키   : 뒤로 돌아가기";
+
+        PrintHard(3, 10, false);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);  // 글씨색상 변경 : 연한 빨강
+        gotoxy(5, 19);
+        cout << " 난이도 (상)";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 글씨색상 변경 : 흰색
 
         drawTable();
-    }
 
+        gotoxy(16, 26);
+        cout << " _______________  "; gotoxy(16, 27);
+        cout << "|__ Space Bar __| " << "   블록 선택하기"; gotoxy(16, 29);
+        cout << "     _____        "; gotoxy(16, 30);
+        cout << "    |_ F _|       " << "   깃발 표시하기"; gotoxy(16, 32);
+        cout << "     _____        "; gotoxy(16, 33);
+        cout << "    |_ S _|       " << "   게임 저장하기"; gotoxy(16, 35);
+        cout << "     _____        "; gotoxy(16, 36);
+        cout << "    |_ C _|       " << "   뒤로 돌아가기";
+
+        gotoxy(36, 29);
+        cout << "          ______        "; gotoxy(36, 30);
+        cout << "         |_ ↑ _|       ";
+
+        gotoxy(36, 31);
+        cout << " ______   ______   ______ "; gotoxy(36, 32);
+        cout << "|_ ← _| |_ ↓ _| |_ → _|"; gotoxy(36, 34);
+        cout << "       커서 이동하기      ";
+
+        gotoxy(40, 12);
+        cout << "지 뢰  개 수"; gotoxy(40, 14);
+        cout << "  ********  "; gotoxy(40, 15);
+        cout << "  *      *  "; gotoxy(40, 16);
+        if (BOMBS_CNT < 10) {
+            cout << "  *   " << BOMBS_CNT << "  *"; gotoxy(40, 17);
+        }
+        cout << "  *  " << BOMBS_CNT << "  *"; gotoxy(40, 17);
+        cout << "  *      *  "; gotoxy(40, 18);
+        cout << "  ********  ";
+    }
 }
 
 double Minesweeper::SelectMapSize_Easy()
 {
     system("cls");
     gotoxy(1, 1);
-    /*cout << "201710321 김원석";*/
     kws::printName();
 
-    PrintEasy();
-
-    gotoxy(23, 18);
+    gotoxy(23, 9);
     cout << "난이도 하";
 
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 글씨색상 변경 : 흰색
+    //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 글씨색상 변경 : 흰색
     
-    gotoxy(14, 20);
-    cout << "############################################"; gotoxy(14, 21);
-    cout << "##                                        ##"; gotoxy(14, 22);
-    cout << "##  맵 크기의 10% 만큼 폭탄이 생성됩니다  ##"; gotoxy(14, 23);
-    cout << "##                                        ##"; gotoxy(14, 24);
-    cout << "##           숫자 누르고 엔터 X 2         ##"; gotoxy(14, 25);
-    cout << "##                                        ##"; gotoxy(14, 26);
-    cout << "##        ←                     →       ##"; gotoxy(14, 27);
-    cout << "##      ↑ □□□□□□□□□□□□       ##"; gotoxy(14, 28);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 29);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 30);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 31);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 32);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 33);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 34);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 35);
-    cout << "##      ↓ □□□□□□□□□□□□       ##"; gotoxy(14, 36);
-    cout << "##                                        ##"; gotoxy(14, 37);
-    cout << "############################################"; gotoxy(14, 38);
+    int _x = 14;
+    int _y = 11;
+    gotoxy(_x, _y);
+    cout << "############################################"; gotoxy(_x, _y + 1);
+    cout << "##                                        ##"; gotoxy(_x, _y + 2);
+    cout << "##  맵 크기의 10% 만큼 폭탄이 생성됩니다  ##"; gotoxy(_x, _y + 3);
+    cout << "##                                        ##"; gotoxy(_x, _y + 4);
+    cout << "##           숫자 누르고 엔터 X 2         ##"; gotoxy(_x, _y + 5);
+    cout << "##                                        ##"; gotoxy(_x, _y + 6);
+    cout << "##        ←                     →       ##"; gotoxy(_x, _y + 7);
+    cout << "##      ↑ □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 8);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 9);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 10);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 11);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 12);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 13);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 14);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 15);
+    cout << "##      ↓ □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 16);
+    cout << "##                                        ##"; gotoxy(_x, _y + 17);
+    cout << "############################################"; gotoxy(_x, _y + 18);
 
-    gotoxy(25, 26);
+    gotoxy(_x + 11, _y + 6);
     cin >> ROW;
 
-    gotoxy(18, 31);
+    gotoxy(_x + 4, _y + 11);
     cin >> COL;
 
     table = new Tile * [COL + 2];
@@ -912,40 +992,39 @@ double Minesweeper::SelectMapSize_Standard()
 {
     system("cls");
     gotoxy(1, 1);
-    /*cout << "201710321 김원석";*/
     kws::printName();
 
-    PrintStandard();
-
-    gotoxy(23, 18);
+    gotoxy(23, 9);
     cout << "난이도 중";
 
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 글씨색상 변경 : 흰색
+    //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 글씨색상 변경 : 흰색
 
-    gotoxy(14, 20);
-    cout << "############################################"; gotoxy(14, 21);
-    cout << "##                                        ##"; gotoxy(14, 22);
-    cout << "##  맵 크기의 20% 만큼 폭탄이 생성됩니다  ##"; gotoxy(14, 23);
-    cout << "##                                        ##"; gotoxy(14, 24);
-    cout << "##           숫자 누르고 엔터 X 2         ##"; gotoxy(14, 25);
-    cout << "##                                        ##"; gotoxy(14, 26);
-    cout << "##        ←                     →       ##"; gotoxy(14, 27);
-    cout << "##      ↑ □□□□□□□□□□□□       ##"; gotoxy(14, 28);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 29);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 30);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 31);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 32);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 33);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 34);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 35);
-    cout << "##      ↓ □□□□□□□□□□□□       ##"; gotoxy(14, 36);
-    cout << "##                                        ##"; gotoxy(14, 37);
-    cout << "############################################"; gotoxy(14, 38);
+    int _x = 14;
+    int _y = 11;
+    gotoxy(_x, _y);
+    cout << "############################################"; gotoxy(_x, _y + 1);
+    cout << "##                                        ##"; gotoxy(_x, _y + 2);
+    cout << "##  맵 크기의 20% 만큼 폭탄이 생성됩니다  ##"; gotoxy(_x, _y + 3);
+    cout << "##                                        ##"; gotoxy(_x, _y + 4);
+    cout << "##           숫자 누르고 엔터 X 2         ##"; gotoxy(_x, _y + 5);
+    cout << "##                                        ##"; gotoxy(_x, _y + 6);
+    cout << "##        ←                     →       ##"; gotoxy(_x, _y + 7);
+    cout << "##      ↑ □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 8);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 9);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 10);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 11);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 12);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 13);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 14);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 15);
+    cout << "##      ↓ □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 16);
+    cout << "##                                        ##"; gotoxy(_x, _y + 17);
+    cout << "############################################"; gotoxy(_x, _y + 18);
 
-    gotoxy(25, 26);
+    gotoxy(_x + 11, _y + 6);
     cin >> ROW;
-    
-    gotoxy(18, 31);
+
+    gotoxy(_x + 4, _y + 11);
     cin >> COL;
 
     table = new Tile * [COL + 2];
@@ -964,40 +1043,39 @@ double Minesweeper::SelectMapSize_Hard()
 {
     system("cls");
     gotoxy(1, 1);
-    /*cout << "201710321 김원석";*/
     kws::printName();
 
-    PrintHard();
-
-    gotoxy(23, 18);
+    gotoxy(23, 9);
     cout << "난이도 상";
 
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 글씨색상 변경 : 흰색
+    //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);  // 글씨색상 변경 : 흰색
 
-    gotoxy(14, 21);
-    cout << "############################################"; gotoxy(14, 22);
-    cout << "##                                        ##"; gotoxy(14, 23);
-    cout << "##  맵 크기의 30% 만큼 폭탄이 생성됩니다  ##"; gotoxy(14, 24);
-    cout << "##                                        ##"; gotoxy(14, 25);
-    cout << "##           숫자 누르고 엔터 X 2         ##"; gotoxy(14, 26);
-    cout << "##                                        ##"; gotoxy(14, 27);
-    cout << "##        ←                     →       ##"; gotoxy(14, 28);
-    cout << "##      ↑ □□□□□□□□□□□□       ##"; gotoxy(14, 29);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 30);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 31);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 32);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 33);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 34);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 35);
-    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(14, 36);
-    cout << "##      ↓ □□□□□□□□□□□□       ##"; gotoxy(14, 37);
-    cout << "##                                        ##"; gotoxy(14, 38);
-    cout << "############################################"; gotoxy(14, 39);
+    int _x = 14;
+    int _y = 11;
+    gotoxy(_x, _y);
+    cout << "############################################"; gotoxy(_x, _y + 1);
+    cout << "##                                        ##"; gotoxy(_x, _y + 2);
+    cout << "##  맵 크기의 30% 만큼 폭탄이 생성됩니다  ##"; gotoxy(_x, _y + 3);
+    cout << "##                                        ##"; gotoxy(_x, _y + 4);
+    cout << "##           숫자 누르고 엔터 X 2         ##"; gotoxy(_x, _y + 5);
+    cout << "##                                        ##"; gotoxy(_x, _y + 6);
+    cout << "##        ←                     →       ##"; gotoxy(_x, _y + 7);
+    cout << "##      ↑ □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 8);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 9);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 10);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 11);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 12);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 13);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 14);
+    cout << "##         □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 15);
+    cout << "##      ↓ □□□□□□□□□□□□       ##"; gotoxy(_x, _y + 16);
+    cout << "##                                        ##"; gotoxy(_x, _y + 17);
+    cout << "############################################"; gotoxy(_x, _y + 18);
 
-    gotoxy(25, 27);
+    gotoxy(_x + 11, _y + 6);
     cin >> ROW;
 
-    gotoxy(18, 32);
+    gotoxy(_x + 4, _y + 11);
     cin >> COL;
 
     table = new Tile * [COL + 2];
@@ -1101,6 +1179,11 @@ void Minesweeper::StartGame_Load()
     int arr_i;
     int arr_j;
 
+    int width = 50; // 초기 값 설정 (테이블을 가운데 상단에 맞추기 위한 초기변수 설정)
+    int height = 30;
+    int table_x = (width / 2) - (ROW / 2);
+    int table_y = (height / 2) - (COL / 2);
+
     PrintLoad();
 
     CursorView(true); // 커서 보이게 하기
@@ -1126,7 +1209,8 @@ void Minesweeper::StartGame_Load()
             x = ROW - 1;
         }
 
-        gotoxy(10 + x, 10 + y);
+
+        gotoxy(table_x + x, table_y + y);
 
         input = _getch();    //키보드 입력을 받았다.
         //→←↑↓
@@ -1232,6 +1316,11 @@ void Minesweeper::StartGame_Easy()
     int arr_i;
     int arr_j;
 
+    int width = 50; // 초기 값 설정 (테이블을 가운데 상단에 맞추기 위한 초기변수 설정)
+    int height = 30;
+    int table_x = (width / 2) - (ROW / 2);
+    int table_y = (height / 2) - (COL / 2);
+
     PrintLoad(); // 로딩 화면 보이기 
 
     CursorView(true); // 커서 보이게 하기
@@ -1255,7 +1344,7 @@ void Minesweeper::StartGame_Easy()
             x = ROW - 1;
         }
 
-        gotoxy(10 + x, 10 + y); 
+        gotoxy(table_x + x, table_y + y); 
         
         input = _getch();    //키보드 입력을 받았다.
         //→←↑↓
@@ -1361,6 +1450,11 @@ void Minesweeper::StartGame_Standard()
     int arr_i;
     int arr_j;
 
+    int width = 50; // 초기 값 설정 (테이블을 가운데 상단에 맞추기 위한 초기변수 설정)
+    int height = 30;
+    int table_x = (width / 2) - (ROW / 2);
+    int table_y = (height / 2) - (COL / 2);
+
     PrintLoad(); // 로딩 화면 보이기 
 
     CursorView(true); // 커서 보이게 하기
@@ -1384,7 +1478,7 @@ void Minesweeper::StartGame_Standard()
             x = ROW - 1;
         }
 
-        gotoxy(10 + x, 10 + y);
+        gotoxy(table_x + x, table_y + y);
 
         input = _getch();    //키보드 입력을 받았다.
         //→←↑↓
@@ -1490,6 +1584,11 @@ void Minesweeper::StartGame_Hard()
     int arr_i;
     int arr_j;
 
+    int width = 50; // 초기 값 설정 (테이블을 가운데 상단에 맞추기 위한 초기변수 설정)
+    int height = 30;
+    int table_x = (width / 2) - (ROW / 2);
+    int table_y = (height / 2) - (COL / 2);
+
     PrintLoad(); // 로딩 화면 보이기 
 
     CursorView(true); // 커서 보이게 하기
@@ -1513,7 +1612,7 @@ void Minesweeper::StartGame_Hard()
             x = ROW - 1;
         }
 
-        gotoxy(10 + x, 10 + y);
+        gotoxy(table_x + x, table_y + y);
 
         input = _getch();    //키보드 입력을 받았다.
         //→←↑↓
@@ -1779,16 +1878,36 @@ void Minesweeper::clearData()
 
 void Minesweeper::drawTable()
 {
-    int y = 10;
+    //int y = 10;
 
-    gotoxy(10, y);
+    //gotoxy(10, y);
+
+    //for (int i = 1; i <= COL; i++) {
+    //    for (int j = 1; j <= ROW; j++) {
+    //        cout << table[i][j].state();
+    //    }
+    //    gotoxy(10, ++y);
+    //}
+    int width = 50; // 초기 값 설정 (테이블을 가운데 상단에 맞추기 위한 초기변수 설정)
+    int height = 30;
+    int table_x = (width / 2) - (ROW / 2);
+    int table_y = (height / 2) - (COL / 2);
+
+    gotoxy(table_x, table_y);
 
     for (int i = 1; i <= COL; i++) {
         for (int j = 1; j <= ROW; j++) {
             cout << table[i][j].state();
         }
-        gotoxy(10, ++y);
+        gotoxy(table_x, ++table_y);
     }
+
+    gotoxy((width / 2) - 2, (height / 2) - (COL / 2) - 2);
+    cout << ROW << "  X  " << COL;
+
+
+
+
 }
 
 void Minesweeper::DrawInitGame()
@@ -1836,7 +1955,7 @@ void Minesweeper::DrawInitGame()
 
 void Minesweeper::PrintLogo()
 {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);  // 글씨색상 변경 : 연한 초록색 (그린조아~)
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);  // 글씨색상 변경 : 초록색 (그린조아~)
     gotoxy(3, 8);
     cout << "                                                        ※※                             "; gotoxy(3, 9);
     cout << "                                                        ※※                             "; gotoxy(3, 10);
@@ -1915,12 +2034,9 @@ void Minesweeper::PrintLoad()
     Sleep(1000);
 }
 
-void Minesweeper::PrintEasy()
+void Minesweeper::PrintEasy(int _x, int _y, bool check)
 {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);  // 글씨색상 변경 : 어두운 하늘
-
-    int _x = 4;
-    int _y = 25;
 
     gotoxy(_x, _y);
     cout << "※※※※※※※※※※"; gotoxy(_x, _y + 1);
@@ -1933,18 +2049,18 @@ void Minesweeper::PrintEasy()
     cout << "        ※※        "; 
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7); // 나머지 텍스트 색깔 흰색으로 바꿔주기
-    gotoxy(36, 27);
-    cout << " 맵 크기의 10% 만큼";
-    gotoxy(36, 29);
-    cout << " 폭탄을 생성합니다";
+
+    if (check) {
+        gotoxy(36, 27);
+        cout << " 맵 크기의 10% 만큼";
+        gotoxy(36, 29);
+        cout << " 폭탄을 생성합니다";
+    }
 }
 
-void Minesweeper::PrintStandard()
+void Minesweeper::PrintStandard(int _x, int _y, bool check)
 {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);  // 글씨색상 변경 : 어두운 노랑
-
-    int _x = 4;
-    int _y = 25;
 
     gotoxy(_x, _y);
     cout << "        ※※        "; gotoxy(_x, _y + 1);
@@ -1957,35 +2073,37 @@ void Minesweeper::PrintStandard()
     cout << "        ※※        ";     
     
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7); // 나머지 텍스트 색깔 흰색으로 바꿔주기
-    gotoxy(36, 27);
-    cout << " 맵 크기의 20% 만큼";
-    gotoxy(36, 29);
-    cout << " 폭탄을 생성합니다";
+
+    if (check) {
+        gotoxy(36, 27);
+        cout << " 맵 크기의 20% 만큼";
+        gotoxy(36, 29);
+        cout << " 폭탄을 생성합니다";
+    }
 }
 
-void Minesweeper::PrintHard()
+void Minesweeper::PrintHard(int _x, int _y, bool check)
 {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);  // 글씨색상 변경 : 어두운 보라
-
-    int _x = 4;
-    int _y = 25;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);  // 글씨색상 변경 : 연한 빨강색
 
     gotoxy(_x, _y);
     cout << "        ※※        "; gotoxy(_x, _y + 1);
     cout << "        ※※        "; gotoxy(_x, _y + 2);
     cout << "        ※※        "; gotoxy(_x, _y + 3);
-    cout << "        ※※※※※  "; gotoxy(_x, _y + 4);
+    cout << "        ※※※※   "; gotoxy(_x, _y + 4);
     cout << "        ※※        "; gotoxy(_x, _y + 5);
     cout << "        ※※        "; gotoxy(_x, _y + 6);
     cout << "        ※※        "; gotoxy(_x, _y + 7);
-    cout << "※※※※※※※※※※"; gotoxy(_x, _y + 8);
-    cout << "※※※※※※※※※※"; 
+    cout << "  ※※※※※※※※"; gotoxy(_x, _y + 8);
     
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7); // 나머지 텍스트 색깔 흰색으로 바꿔주기
-    gotoxy(36, 27);
-    cout << " 맵 크기의 30% 만큼";
-    gotoxy(36, 29);
-    cout << " 폭탄을 생성합니다";
+
+    if (check) {
+        gotoxy(36, 27);
+        cout << " 맵 크기의 30% 만큼";
+        gotoxy(36, 29);
+        cout << " 폭탄을 생성합니다";
+    }
 }
 
 MENU Minesweeper::ReadyGame()
