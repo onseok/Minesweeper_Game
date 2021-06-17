@@ -5,23 +5,27 @@
 ## 구현한 기능
 
 ### 난이도 선택 
+
+![github_minesweeper](https://user-images.githubusercontent.com/76798309/122036072-1c9f5480-ce0e-11eb-886b-cb31d210e5f6.gif)
+
 - 난이도 하 : 맵 크기 10%만큼의 지뢰가 랜덤으로 생성됨
 - 난이도 중 : 맵 크기 20%만큼의 지뢰가 랜덤으로 생성됨
 - 난이도 상 : 맵 크기 30%만큼의 지뢰가 랜덤으로 생성됨
 
-![github_minesweeper](https://user-images.githubusercontent.com/76798309/122036072-1c9f5480-ce0e-11eb-886b-cb31d210e5f6.gif)
  
  ### 저장 및 불러오기 
+ 
+ ![github_minesweeper_2](https://user-images.githubusercontent.com/76798309/122445618-ae5cbc80-cfdc-11eb-96c8-35dce993157e.gif)
+ 
  - 게임 진행 중 s키(혹은 S키)를 입력하면 게임이 저장됨
  - 저장 후 "이어하기" 메뉴를 선택하면 게임을 불러옴
  - 게임을 종료했다가 후에 재시작하여도 무관함
- 
- ![github_minesweeper_2](https://user-images.githubusercontent.com/76798309/122445618-ae5cbc80-cfdc-11eb-96c8-35dce993157e.gif)
 
 ### 맵 사이즈 컨트롤 
-- 사용자가 원하는 크기의 맵 사이즈를 생성할 수 있음 (가로, 세로 둘 다)
-- 
+
 ![github_minesweeper_3](https://user-images.githubusercontent.com/76798309/122446410-99ccf400-cfdd-11eb-9254-c3203cac0980.gif)
+
+- 사용자가 원하는 크기의 맵 사이즈를 생성할 수 있음 (가로, 세로 둘 다)
 
  ### 리플레이 
  - 게임이 종료되면 게임 진행과정을 자동으로 리플레이함
